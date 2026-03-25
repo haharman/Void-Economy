@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4f94d2bcbc4031ac33973c0a5e1571, type: 3}
+  m_Name: DefaultSaveData
+  m_EditorClassIdentifier: Model::Model.DefaultSaveDataSO
+  data:
+    player:
+      scale: 1
+      position: {x: 0, y: 0}
+      velocity: {x: 0, y: 0}
+      acceleration: {x: 0, y: 0}
+      forward: {x: 0, y: 0}
+      velocityForward: {x: 0, y: 0}
+    yarn: []

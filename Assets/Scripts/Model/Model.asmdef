@@ -1,0 +1,23 @@
+{
+    "name": "Model",
+    "rootNamespace": "Model",
+    "references": [
+        "Core",
+        "R3.Unity",
+        "R3.Unity.TextMeshPro",
+        "Unity.Burst",
+        "YarnSpinner.Unity"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "YarnSpinner.dll",
+        "R3.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

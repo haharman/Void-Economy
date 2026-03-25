@@ -1,0 +1,29 @@
+{
+    "name": "View",
+    "rootNamespace": "View",
+    "references": [
+        "GUID:ad8e8114d778d174a87496ef8e8c28c8",
+        "GUID:1837952881b893949b2c2d13b1e7dbf8",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:f02da9ca564ed54499f6f43d8249d415",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:34aa492b82754644eac2f903cd496268",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:e4b228dab700203488a7c7d474a25838",
+        "GUID:f63ec9cb902f2a34c9799fb7891ab3a9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "R3.dll",
+        "YarnSpinner.dll",
+        "DOTween.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

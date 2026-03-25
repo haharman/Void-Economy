@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd787a5cddd34c7b9f44641285a408c2, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: Core::Core.AudioDataSO
+  musicList:
+  - id: 0
+    clip: {fileID: 8300000, guid: dba3900ee733b88489443b58e8cf3cd9, type: 3}
+  - id: 5
+    clip: {fileID: 8300000, guid: d3ce071507d115e4e8e6a9cb87e8118d, type: 3}
+  - id: 2
+    clip: {fileID: 8300000, guid: d747fe5c8a91c064d9a0b97f1ae99a99, type: 3}
+  - id: 6
+    clip: {fileID: 8300000, guid: 9483fc3ccdbadac46983b1271a655699, type: 3}
+  - id: 4
+    clip: {fileID: 8300000, guid: e97f72a3cc780a7468de86ce671d1844, type: 3}
+  loopList: []
+  footStepList:
+  - id: 0
+    clips: []
+  oneShotList: []
