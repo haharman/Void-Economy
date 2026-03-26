@@ -62,5 +62,10 @@ gitGraph
     branch feature/parallax-background
     checkout feature/parallax-background
     commit id: "Setup Feature"
+    commit id: "Parallax, Entity, Interact"
+    checkout develop
+    merge feature/parallax-background tag: "v0.13"
+    branch feature/yarn
+    checkout feature/yarn
 ```
 
