@@ -2,6 +2,7 @@ using Core;
 using Model.Physics;
 using UnityEngine;
 using R3;
+using UnityEditor;
 
 
 namespace Model
@@ -30,7 +31,7 @@ namespace Model
         public ReactiveProperty<Vector2> velocity { get; } = new(Vector2.zero);
         public Entity currentTarget { get; private set; }
         public float interactionRange { get; } = 1.5f;
-        const float VelocityFactor = 1f;
+        const float VelocityFactor = 3f;
         #endregion
         
         public PlayerModel(GlobalStateModel globalStateModel, EntityModel entityModel, IPhysicsSource physicsSource)
@@ -38,17 +39,6 @@ namespace Model
             _globalStateModel = globalStateModel;
             _entityModel = entityModel;
             _physicsSource = physicsSource;
-        }
-        
-        // --- メソッド ---
-        public void SetTarget(Entity entity)
-        {
-            currentTarget = entity;
-        }
-
-        public void ClearTarget()
-        {
-            currentTarget = null;
         }
         
         public void ClearFlags()
@@ -64,13 +54,20 @@ namespace Model
             {
                 velocity.Value = new Vector2(moveInput.x * VelocityFactor, 0f);
                 position.Value += velocity.Value * deltaTime;
-                xGrid = (int)position.Value.x / 10;
-                currentTarget = _entityModel.GetInteractableEntity((int)currentSurface, xGrid, position.Value, interactionRange);
+                xGrid = Utils.CalculateXGrid(position.Value.x);
+                currentTarget = _entityModel.GetInteractableEntity(xGrid, position.Value, interactionRange);
+
+                if (interactFlag)
+                    if (currentTarget != null)
+                    {
+                        currentTarget.OnInteract();
+                        interactFlag = false;
+                    }
             }
             else if(_globalStateModel.currentSceneState == GlobalStateModel.SceneState.Space)
             {
                 position.Value = _physicsSource.position;
-                xGrid = (int)position.Value.x / 10;
+                xGrid = Utils.CalculateXGrid(position.Value.x);
                 yGrid = (int)position.Value.y / 10;
             }
             
