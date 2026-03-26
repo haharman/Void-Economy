@@ -8,6 +8,12 @@ namespace Core
         Fog = 1,
     }
     
+    public enum EntityType
+    {
+        Object,
+        Npc
+    }
+    
     public enum MusicId {
         Arctrus,
         Observatory,

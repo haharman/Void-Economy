@@ -91,6 +91,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         // Model層 インスタンスの作成
         _globalStateModel = new GlobalStateModel(this);
         _economyEngine = new EconomyEngine();
+        _entityModel = new EntityModel();
         _physicsEngine = new PhysicsEngine();
         _yarnModel = new YarnModel(yarnView.variableStorage);
         _audioPresenter = new AudioPresenter();
@@ -101,7 +102,6 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         // Presenter層 インスタンスの作成
         _yarnPresenter = new YarnPresenter(yarnView, _inventoryModel);
         _playerInputPresenter = new PlayerInputPresenter(playerInputView, _playerModel);
-        _yarnPresenter.StartDialogueWithEntity(new Entity());
         
         // View層の初期化
         audioView.Initialize(audioData);
@@ -255,8 +255,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     _currentSceneRoot = _titleRoot;
                     break;
                 case SceneType.Surface:
+                    var surface = _globalStateModel.currentSurface;
                     _surfaceRoot = FindFirstObjectByType<SurfaceRoot>();
-                    _surfaceRoot.Init(_playerModel);
+                    _surfaceRoot.Init(surface, _playerModel, _entityModel);
                     _currentSceneRoot = _surfaceRoot;
                     break;
                 case SceneType.Space:

@@ -24,6 +24,7 @@ namespace Model
         
         public bool isPaused { get; set; }
         public SceneState currentSceneState { get; private set; }
+        public Surface currentSurface { get; set; } = Surface.Mine;
         
         private void HandleOnLoadStart(SceneType sceneType)
         {

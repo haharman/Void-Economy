@@ -5,45 +5,40 @@ namespace Model
 {
     public class EntityModel
     {
-        public List<Entity>[][] entities { get; set; }
-
-        public Entity GetInteractableEntity(int surfaceID, int xGrid, Vector2 position, float range)
+        private List<Entity> _entities;
+        public List<Entity> Init(List<EntityConfig> entityConfigs)
         {
-            if (entities == null) return null;
-            if (surfaceID < 0 || surfaceID >= entities.Length) return null;
+            _entities = new List<Entity>();
+            foreach (var config in entityConfigs)
+            {
+                _entities.Add(new Entity(config));
+            }
+
+            Debug.Log("[EntityModel] Init with: " + _entities.Count + "entities");
+            return _entities;
+        }
+        
+        public Entity GetInteractableEntity(int xGrid, Vector2 position, float range)
+        {
+            if (_entities == null || _entities.Count == 0) return null;
             
-            var surfaceEntities = entities[surfaceID];
-            if (surfaceEntities == null || xGrid < 0 || xGrid >= surfaceEntities.Length) return null;
-
-            var entityList = surfaceEntities[xGrid];
-            if (entityList == null || entityList.Count == 0) return null;
-
-            Entity closestEntity = null;
+            var closestEntity = (Entity)null;
             float closestDistanceSqr = range * range;
-
-            foreach (var entity in entityList)
+            
+            foreach (var entity in _entities)
             {
                 if (!entity.isInteractable) continue;
-
-                float distanceSqr = (entity.position - position).sqrMagnitude;
-
+                if (Mathf.Abs(entity.xGrid - xGrid) > 1) continue;
+                Debug.Log("[EntityModel] GetInteractiveEntity xGrid一致");
+                float distanceSqr = (entity.position.Value - position).sqrMagnitude;
+                Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
                 if (distanceSqr < closestDistanceSqr)
                 {
                     closestEntity = entity;
                     closestDistanceSqr = distanceSqr;
                 }
             }
-
             return closestEntity;
         }
-    }
-    
-    public class Entity
-    {
-        public int surfaceID { get; set; }
-        public int xGrid { get; set; }
-        public Vector2 position { get; set; }
-        public string dialogueNodeName { get; set; }
-        public bool isInteractable { get; set; } = true;
     }
 }
