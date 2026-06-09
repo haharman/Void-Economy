@@ -5,13 +5,20 @@ namespace Model
 {
     public class EntityModel
     {
+        private YarnModel _yarnModel;
         private List<Entity> _entities;
+        
+        public EntityModel(YarnModel yarnModel)
+        {
+            _yarnModel = yarnModel;
+        }
+        
         public List<Entity> Init(List<EntityConfig> entityConfigs)
         {
             _entities = new List<Entity>();
             foreach (var config in entityConfigs)
             {
-                _entities.Add(new Entity(config));
+                _entities.Add(new Entity(config, _yarnModel));
             }
 
             Debug.Log("[EntityModel] Init with: " + _entities.Count + "entities");
@@ -29,9 +36,9 @@ namespace Model
             {
                 if (!entity.isInteractable) continue;
                 if (Mathf.Abs(entity.xGrid - xGrid) > 1) continue;
-                Debug.Log("[EntityModel] GetInteractiveEntity xGrid一致");
+                //Debug.Log("[EntityModel] GetInteractiveEntity xGrid一致");
                 float distanceSqr = (entity.position.Value - position).sqrMagnitude;
-                Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
+                // Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
                 if (distanceSqr < closestDistanceSqr)
                 {
                     closestEntity = entity;

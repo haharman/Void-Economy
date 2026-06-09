@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: DialogueTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: DialogueTable
+  m_TableCollectionNameGuidString: baab6231ec1058a47be4550d8915d1ad
+  m_Entries:
+  - m_Id: 541987946496
+    m_Key: line:04c37f8
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363333
+  - m_Id: 542034083840
+    m_Key: line:02f5b4b
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363334
+  - m_Id: 542034083841
+    m_Key: line:07a39cc
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363335
+  - m_Id: 542034083842
+    m_Key: line:04901a3
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363336
+  - m_Id: 542034083843
+    m_Key: line:0e73d78
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363337
+  - m_Id: 542034083844
+    m_Key: line:0bdd1a6
+    m_Metadata:
+      m_Items:
+      - rid: 8448588568856363338
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8448588568856363332
+  references:
+    version: 2
+    RefIds:
+    - rid: 8448588568856363332
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1774527281386
+    - rid: 8448588568856363333
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 8448588568856363334
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags:
+        - lastline
+    - rid: 8448588568856363335
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 8448588568856363336
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 8448588568856363337
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 8448588568856363338
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []

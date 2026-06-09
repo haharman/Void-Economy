@@ -9,6 +9,7 @@ using View;
 using Core;
 using Root;
 using UnityEngine.SceneManagement;
+using Yarn.Unity;
 
 public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitService
 {
@@ -36,19 +37,21 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
     private SaveData _loadedData;
     
     // Presenter
-    private PlayerInputPresenter _playerInputPresenter;
-    private YarnPresenter _yarnPresenter;
+    private InputPresenter _inputPresenter;
     private AudioPresenter _audioPresenter;
     
     // View
     [Header("View")]
-    [SerializeField] private PlayerInputView playerInputView;
+    [SerializeField] private InputView inputView;
     [SerializeField] private YarnView yarnView;
     [SerializeField] private AudioView audioView;
     
     [Header("ScriptableObject")]
     [SerializeField] private AudioDataSO audioData;
     [SerializeField] private DefaultSaveDataSO defaultSaveData;
+    
+    [SerializeField] private DialogueRunner dialogueRunner;
+    [SerializeField] private InMemoryVariableStorage yarnVariableStorage;
 
     private ISceneRoot _currentSceneRoot;
 
@@ -91,17 +94,16 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         // Model層 インスタンスの作成
         _globalStateModel = new GlobalStateModel(this);
         _economyEngine = new EconomyEngine();
-        _entityModel = new EntityModel();
         _physicsEngine = new PhysicsEngine();
-        _yarnModel = new YarnModel(yarnView.variableStorage);
+        _yarnModel = new YarnModel(dialogueRunner ,yarnVariableStorage, _globalStateModel);
+        _entityModel = new EntityModel(_yarnModel);
         _audioPresenter = new AudioPresenter();
-        _inventoryModel = new InventoryModel();
+       _inventoryModel = new InventoryModel();
         _playerModel = new PlayerModel(_globalStateModel, _entityModel, _physicsEngine);
         _questModel = new QuestModel();
         
         // Presenter層 インスタンスの作成
-        _yarnPresenter = new YarnPresenter(yarnView, _inventoryModel);
-        _playerInputPresenter = new PlayerInputPresenter(playerInputView, _playerModel);
+        _inputPresenter = new InputPresenter(inputView, _playerModel, _yarnModel, _globalStateModel);
         
         // View層の初期化
         audioView.Initialize(audioData);
@@ -255,7 +257,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     _currentSceneRoot = _titleRoot;
                     break;
                 case SceneType.Surface:
-                    var surface = _globalStateModel.currentSurface;
+                    var surface = _globalStateModel.surface;
                     _surfaceRoot = FindFirstObjectByType<SurfaceRoot>();
                     _surfaceRoot.Init(surface, _playerModel, _entityModel);
                     _currentSceneRoot = _surfaceRoot;

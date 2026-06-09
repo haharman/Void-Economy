@@ -1,45 +1,44 @@
+using System;
 using Core;
 
 namespace Model
 {
     public class GlobalStateModel
     {
+        // フィールド
+        private readonly ISceneService _sceneService;
+        public bool isPaused { get; set; }
+        public SceneState sceneState { get; private set; }
+        public Surface surface { get; set; }
+        public InputState inputState { get; set; }
+        
+        // イベント
+        public event Action OnDialogueStarted;
+        public event Action OnDialogueCompleted;
+        
         public GlobalStateModel(ISceneService sceneService)
         {
             _sceneService = sceneService;
             _sceneService.OnLoadStart += HandleOnLoadStart;
             _sceneService.OnLoadComplete += HandleOnLoadComplete;
-            currentSceneState = SceneState.Title;
+            sceneState = SceneState.Title;
         }
-        private readonly ISceneService _sceneService;
-        public enum SceneState
-        {
-            ToTitle,
-            Title,
-            ToSurface,
-            Surface,
-            ToSpace,
-            Space
-        }
-        
-        public bool isPaused { get; set; }
-        public SceneState currentSceneState { get; private set; }
-        public Surface currentSurface { get; set; } = Surface.Mine;
         
         private void HandleOnLoadStart(SceneType sceneType)
         {
             switch (sceneType)
             {
                 case SceneType.Title:
-                    currentSceneState = SceneState.ToTitle;
+                    sceneState = SceneState.ToTitle;
                     break;
                 case SceneType.Surface:
-                    currentSceneState = SceneState.ToSurface;
+                    sceneState = SceneState.ToSurface;
                     break;
                 case SceneType.Space:
-                    currentSceneState = SceneState.ToSpace;
+                    sceneState = SceneState.ToSpace;
                     break;
             }
+            inputState = InputState.Disable;
         }
         
         private void HandleOnLoadComplete(SceneType sceneType)
@@ -47,15 +46,29 @@ namespace Model
             switch (sceneType)
             {
                 case SceneType.Title:
-                    currentSceneState = SceneState.Title;
+                    sceneState = SceneState.Title;
+                    inputState = InputState.UI;
                     break;
                 case SceneType.Surface:
-                    currentSceneState = SceneState.Surface;
+                    sceneState = SceneState.Surface;
+                    surface = Surface.Mine;
+                    inputState = InputState.Surface;
                     break;
                 case SceneType.Space:
-                    currentSceneState = SceneState.Space;
+                    sceneState = SceneState.Space;
+                    inputState = InputState.Space;
                     break;
             }
+        }
+        
+        public void InvokeOnDialogueStarted()
+        {
+            OnDialogueStarted?.Invoke();
+        }
+        
+        public void InvokeOnDialogueCompleted()
+        {
+            OnDialogueCompleted?.Invoke();
         }
     }
 }

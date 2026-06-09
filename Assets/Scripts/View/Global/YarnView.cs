@@ -7,13 +7,9 @@ namespace View
     
     public class YarnView : MonoBehaviour
     {
-        public DialogueRunner dialogueRunner;
-        public InMemoryVariableStorage variableStorage;
-        //[SerializeField] private OptionListView _optionListView; // YarnのOptionsListViewをアタッチ
 
         public void ShowDialogueUI() { gameObject.SetActive(true); }
         public void HideDialogueUI() { gameObject.SetActive(false); }
-        public bool isPlaying => dialogueRunner.IsDialogueRunning;
 
         private void Start()
         {
@@ -35,19 +31,6 @@ namespace View
             {
                 EventSystem.current.SetSelectedGameObject(firstButton.gameObject);
             }*/
-        }
-        
-        private void Awake()
-        {
-            // 別のYarnViewが存在する場合は自身を破棄する
-            var existingSystems = FindObjectsOfType<YarnView>();
-            if (existingSystems.Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            DontDestroyOnLoad(gameObject);
         }
     }
 }

@@ -1,5 +1,22 @@
 namespace Core
 {
+    public enum SceneState
+    {
+        ToTitle,
+        Title,
+        ToSurface,
+        Surface,
+        ToSpace,
+        Space
+    }
+    public enum InputState
+    {
+        Disable,
+        Surface,
+        Space,
+        Dialogue,
+        UI
+    }
     
     public enum Surface
     {

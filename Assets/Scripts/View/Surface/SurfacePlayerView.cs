@@ -5,7 +5,7 @@ namespace View
 {
     public class SurfacePlayerView : MonoBehaviour
     {
-        [SerializeField] private Transform transform;
+        [SerializeField] private Transform playerTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
         
@@ -16,7 +16,7 @@ namespace View
 
         public void Initialize()
         {
-            _defaultScaleX = transform.localScale.x;
+            _defaultScaleX = playerTransform.localScale.x;
         }
         
         public void OnUpdateVelocity(float xVelocity)
@@ -43,7 +43,7 @@ namespace View
         {
             //Debug.Log("[SurfacePlayerView] OnUpdatePosition: " + position);
             // 座標
-            transform.position = new Vector3(position.x, position.y, transform.position.z);
+            playerTransform.position = new Vector3(position.x, position.y, playerTransform.position.z);
 
         }
     }

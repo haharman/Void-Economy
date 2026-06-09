@@ -1,7 +1,6 @@
 using UnityEngine;
 using Core;
-using Model;
-
+using Model;   
 namespace View
 {
     public class EntityView : MonoBehaviour

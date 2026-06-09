@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: shrine1
     originalName: 
-    pivot: {x: 0.50375, y: 0}
+    pivot: {x: 0.501868, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,7 +137,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 3200
+      width: 3212
       height: 180
     spriteID: 8bac4c8ef9a3c3140804b0be3e5860c6
     spriteBone: []
@@ -169,7 +169,7 @@ ScriptedImporter:
       cellRect:
         x: -12
         y: 0
-        width: 3200
+        width: 3212
         height: 180
       spriteId: 8bac4c8ef9a3c3140804b0be3e5860c6
     linkedCells: []
