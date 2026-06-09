@@ -9,6 +9,5 @@ namespace Core
         {
             return Mathf.RoundToInt(x / GridSize);
         }
-        
     }
 }

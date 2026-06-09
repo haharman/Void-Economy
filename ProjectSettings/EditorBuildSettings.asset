@@ -15,5 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SpaceScene.unity
     guid: aa6391fe4c3c5fd46a5e2db4e5cd20c9
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: fd26675ed6fe0ab48a45e2a10f7f1734, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 0846d1915d1000c4cb0c9732dbd81eaf, type: 2}
   m_UseUCBPForAssetBundles: 0

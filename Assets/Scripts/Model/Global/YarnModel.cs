@@ -1,47 +1,85 @@
 using System;
 using System.Collections.Generic;
+using Core;
+using UnityEngine;
 using Yarn.Unity;
 
 namespace Model
 {
     public class YarnModel
     {
-        private SaveData _saveData;
-        private InMemoryVariableStorage _yarnStorage;
+        private DialogueRunner _dialogueRunner;
+        private InMemoryVariableStorage _inMemoryVariableStorage;
+        private GlobalStateModel _globalStateModel;
         
-        public YarnModel( InMemoryVariableStorage yarnStorage)
+        
+        public YarnModel(DialogueRunner dialogueRunner, InMemoryVariableStorage inMemoryVariableStorage, GlobalStateModel globalStateModel)
         {
-            _yarnStorage = yarnStorage;
+            _dialogueRunner = dialogueRunner;
+            _inMemoryVariableStorage = inMemoryVariableStorage;
+            _globalStateModel = globalStateModel;
+            
+            _dialogueRunner.onDialogueStart.AddListener(OnDialogueStart);
+            _dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         }
 
-        public void SaveVariablesToSaveData(SaveData saveData)
+        public bool isDialogueRunning => _dialogueRunner.IsDialogueRunning;
+        
+        public void StartDialogue(string nodeName)
         {
-            saveData.yarn.Clear();
+            _dialogueRunner.StartDialogue(nodeName);
+        }
+
+        [YarnCommand("Sample")]
+        public static void Sample()
+        {
+            Debug.Log("[YarnModel] Sample Commandが呼ばれました");
+        }
+        
+        private void OnDialogueStart()
+        {
+            Debug.Log("[YarnModel] OnDialogueStart");
+            _globalStateModel.inputState = InputState.Dialogue;
+            _globalStateModel.InvokeOnDialogueStarted();
+        }
+
+        private void OnDialogueComplete()
+        {
+            Debug.Log("[YarnModel] OnDialogueComplete");
+            _globalStateModel.inputState = InputState.Surface;
+            _globalStateModel.InvokeOnDialogueCompleted();
+        }
+
+        #region セーブとロード
+        public List<YarnVariable> SaveVariablesToSaveData()
+        {
+            List<YarnVariable> yarnVariables = new List<YarnVariable>();
 
             // Yarnから現在の全変数を取得
-            var (floats, strings, bools) = _yarnStorage.GetAllVariables();
+            var (floats, strings, bools) = _inMemoryVariableStorage.GetAllVariables();
 
             foreach (var kvp in floats)
-                saveData.yarn.Add(new YarnVariable { key = kvp.Key, value = kvp.Value.ToString(), type = "Float" });
+                yarnVariables.Add(new YarnVariable { key = kvp.Key, value = kvp.Value.ToString(), type = "Float" });
 
             foreach (var kvp in strings)
-                saveData.yarn.Add(new YarnVariable { key = kvp.Key, value = kvp.Value, type = "String" });
+                yarnVariables.Add(new YarnVariable { key = kvp.Key, value = kvp.Value, type = "String" });
 
             foreach (var kvp in bools)
-                saveData.yarn.Add(new YarnVariable { key = kvp.Key, value = kvp.Value.ToString(), type = "Bool" });
+                yarnVariables.Add(new YarnVariable { key = kvp.Key, value = kvp.Value.ToString(), type = "Bool" });
+            
+            return yarnVariables;
         }
-
-        // --- ロード時の処理 ---
-        public void LoadVariablesFromSaveData(SaveData saveData)
+        
+        public void LoadVariablesFromSaveData(List<YarnVariable> yarnVariables)
         {
-            _yarnStorage.Clear();
+            _inMemoryVariableStorage.Clear();
 
             var floats = new Dictionary<string, float>();
             var strings = new Dictionary<string, string>();
             var bools = new Dictionary<string, bool>();
 
             // 保存されたリストから型ごとに復元
-            foreach (var variable in saveData.yarn)
+            foreach (var variable in yarnVariables)
             {
                 if (variable.type == "Float" && float.TryParse(variable.value, out float fVal))
                     floats[variable.key] = fVal;
@@ -52,8 +90,8 @@ namespace Model
             }
 
             // Yarnに一括でセット
-            _yarnStorage.SetAllVariables(floats, strings, bools);
+            _inMemoryVariableStorage.SetAllVariables(floats, strings, bools);
         }
-        
+        #endregion
     }
 }
