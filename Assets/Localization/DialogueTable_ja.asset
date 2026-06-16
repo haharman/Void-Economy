@@ -19,27 +19,51 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 541987946496
-    m_Localized: Wow!
+    m_Localized: 'Guide: Wow!'
     m_Metadata:
       m_Items: []
   - m_Id: 542034083840
-    m_Localized: My first ever Yarn script in Unity!
+    m_Localized: 'Guide: My first ever Yarn script in Unity!'
     m_Metadata:
       m_Items: []
   - m_Id: 542034083841
-    m_Localized: Gosh!
+    m_Localized: 'Player: Gosh!'
     m_Metadata:
       m_Items: []
   - m_Id: 542034083842
-    m_Localized: Incredible!
+    m_Localized: 'Player: Incredible!'
     m_Metadata:
       m_Items: []
   - m_Id: 542034083843
-    m_Localized: I'm amazed!
+    m_Localized: 'Player: I''m amazed!'
     m_Metadata:
       m_Items: []
   - m_Id: 542034083844
-    m_Localized: Anyway, time to get writing!
+    m_Localized: 'Guide: Anyway, time to get writing!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756473516032
+    m_Localized: "Guide: WASD\u3067\u79FB\u52D5,E\u30AD\u30FC\u3067\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u306B\u8A71\u3057\u304B\u3051\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756511264768
+    m_Localized: "\u5730\u8535: \u3088\u3046\u3053\u305D\u3002\u3053\u3053\u306FParallax\u30D3\u30E5\u30FC\u306E\u30B5\u30F3\u30D7\u30EB\u30B7\u30FC\u30F3\u3067\u3059\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756511264769
+    m_Localized: "Player: \u958B\u767A\u30B3\u30F3\u30BB\u30D7\u30C8\u3092\u6559\u3048\u3066\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756511264770
+    m_Localized: "\u5730\u8535: \u5B87\u5B99\u3068\u795E\u793E\u3092\u30C6\u30FC\u30DE\u3068\u3057\u305F\u30A4\u30F3\u30C7\u30A3\u30FC\u30BF\u30A4\u30C8\u30EB\u3092\u4F5C\u308A\u307E\u3059\u3002\u3053\u308C\u306F\u305D\u306E\u30D7\u30ED\u30C8\u30BF\u30A4\u30D7\u3067\u3059\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756511264771
+    m_Localized: "Player: \u3069\u3093\u306A\u30B2\u30FC\u30E0\u306B\u306A\u308B\u306E\uFF1F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29167756511264772
+    m_Localized: "\u5730\u8535: \u60D1\u661F\u9593\u3092\u98DB\u3073\u56DE\u308A\u3001\u884C\u5546\u3092\u884C\u3046\u30B2\u30FC\u30E0\u306B\u306A\u308B\u4E88\u5B9A\u3067\u3059\u3002\u3053\u306E\u30D7\u30ED\u30C8\u30BF\u30A4\u30D7\u306F\u3001\u305D\u306E\u60D1\u661F\u306E\u4E00\u3064\u306B\u306A\u308B\u4E88\u5B9A\u3067\u3059\u3002"
     m_Metadata:
       m_Items: []
   references:

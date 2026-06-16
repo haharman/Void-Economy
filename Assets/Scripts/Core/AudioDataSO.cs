@@ -36,7 +36,13 @@ namespace Core
         [SerializeField] private List<FootstepConfig> footStepList;
         [SerializeField] private List<OneShotConfig> oneShotList;
         
-        
+        public List<MusicId> GetMusicIdList() {
+            List<MusicId> idList = new List<MusicId>();
+            foreach (var config in musicList) {
+                idList.Add(config.id);
+            }
+            return idList;
+        }
         public AudioClip GetMusicClip(MusicId musicId) {
             var config = musicList.Find(x => x.id == musicId);
             return config.clip;

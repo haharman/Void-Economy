@@ -45,6 +45,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 8448588568856363338
+  - m_Id: 29167756473516032
+    m_Key: line:d4d7dbef
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893911
+  - m_Id: 29167756511264768
+    m_Key: line:c3014db3
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893912
+  - m_Id: 29167756511264769
+    m_Key: line:7950442a
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893913
+  - m_Id: 29167756511264770
+    m_Key: line:ef60435d
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893914
+  - m_Id: 29167756511264771
+    m_Key: line:4cf527c3
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893915
+  - m_Id: 29167756511264772
+    m_Key: line:dac520b4
+    m_Metadata:
+      m_Items:
+      - rid: 5896804343195893916
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -52,6 +82,38 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 5896804343195893911
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 5896804343195893912
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags:
+        - lastline
+    - rid: 5896804343195893913
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
+    - rid: 5896804343195893914
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags:
+        - lastline
+    - rid: 5896804343195893915
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
+    - rid: 5896804343195893916
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
     - rid: 8448588568856363332
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:

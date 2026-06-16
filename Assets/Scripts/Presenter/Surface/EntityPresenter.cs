@@ -23,7 +23,7 @@ namespace Presenter
                 Debug.LogError("[EntityPresenter] ModelとViewの数が一致しません");
             for (int i = 0; i < _modelList.Count; i++)
             {
-                _modelList[i].position
+                _modelList[i].Position
                     .Subscribe(pos => _viewList[i].OnUpdatePosition(pos))
                     .RegisterTo(cancellationToken);
             }

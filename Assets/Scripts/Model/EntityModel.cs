@@ -34,10 +34,10 @@ namespace Model
             
             foreach (var entity in _entities)
             {
-                if (!entity.isInteractable) continue;
-                if (Mathf.Abs(entity.xGrid - xGrid) > 1) continue;
+                if (!entity.IsInteractable) continue;
+                if (Mathf.Abs(entity.XGrid - xGrid) > 1) continue;
                 //Debug.Log("[EntityModel] GetInteractiveEntity xGrid一致");
-                float distanceSqr = (entity.position.Value - position).sqrMagnitude;
+                float distanceSqr = (entity.Position.Value - position).sqrMagnitude;
                 // Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
                 if (distanceSqr < closestDistanceSqr)
                 {
