@@ -8,6 +8,7 @@ namespace View
         [SerializeField] private bool isInteractable = true;
         [SerializeField] private string dialogueNodeName;
         [SerializeField] private Transform entityTransform;
+        [SerializeField] private float interactionGuideOffsetY;
 
         public EntityConfig GetConfig()
         {
@@ -15,7 +16,8 @@ namespace View
             {
                 IsInteractable = isInteractable,
                 DialogueNodeName = dialogueNodeName,
-                Position = (Vector2)entityTransform.position
+                Position = (Vector2)entityTransform.position,
+                InteractionGuideOffsetY = interactionGuideOffsetY
             };
         }
         

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core;
 using Model;
@@ -12,18 +13,24 @@ namespace Root
     {
         // Model
         private EntityModel _entityModel;
+        private InteractionGuideModel _interactionGuideModel;
         
         // View
         [SerializeField] private SurfacePlayerView surfacePlayerView;
         [SerializeField] private ParallaxView parallaxView;
+        [SerializeField] private InteractionGuideView interactionGuideView;
         [SerializeField] private List<SurfaceView> surfaceViewList;
         private SurfaceView _currentSurfaceView;
         
         // Presenter
         private SurfacePlayerPresenter _surfacePlayerPresenter;
         private EntityPresenter _entityPresenter;
+        private AudioPresenter _audioPresenter;
         
-        public void Init(Surface surface, PlayerModel playerModel, EntityModel entityModel)
+        // Titleに戻るイベント（仮実装）
+        public event Action OnBackToTitle;
+        
+        public void Init(Surface surface, PlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
         {
             _currentSurfaceView = null;
             foreach (var surfaceView in surfaceViewList)
@@ -41,22 +48,29 @@ namespace Root
             
             // Modelのインスタンスを作成
             _entityModel = entityModel;
+            _interactionGuideModel = new InteractionGuideModel(playerModel);
             var entityConfigList = _currentSurfaceView.GetEntityConfigList();
             var entityViewList = _currentSurfaceView.GetEntityViewList();
-            var entityModelList = _entityModel.Init(entityConfigList);
-            
+            var entityModelList = _entityModel.Init(entityConfigList); // Entity生成に必要な一覧のデータを渡す
             // Presenterのインスタンスを作成
+            _audioPresenter = audioPresenter;
             _entityPresenter = new EntityPresenter(entityModelList, entityViewList, this.destroyCancellationToken);
             _surfacePlayerPresenter = new SurfacePlayerPresenter(playerModel, surfacePlayerView, parallaxView,
-                this.destroyCancellationToken);
+                _audioPresenter, this.destroyCancellationToken);
             
             // Viewの初期化
             surfacePlayerView.Initialize();
+            interactionGuideView.Initialize(_interactionGuideModel);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            
+            _interactionGuideModel.OnUpdate(deltaTime);
+        }
+
+        public void BackToTitle()
+        {
+            OnBackToTitle?.Invoke();
         }
     }
 }

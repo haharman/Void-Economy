@@ -55,6 +55,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
 
     private ISceneRoot _currentSceneRoot;
 
+    /// <summary>
+    /// Runtimeスタート時、タイトルシーンへ遷移させる
+    /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void RuntimeInit()
     {
@@ -97,9 +100,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         _physicsEngine = new PhysicsEngine();
         _yarnModel = new YarnModel(dialogueRunner ,yarnVariableStorage, _globalStateModel);
         _entityModel = new EntityModel(_yarnModel);
-        _audioPresenter = new AudioPresenter();
        _inventoryModel = new InventoryModel();
         _playerModel = new PlayerModel(_globalStateModel, _entityModel, _physicsEngine);
+        _audioPresenter = new AudioPresenter(audioView, _playerModel, this.destroyCancellationToken);
         _questModel = new QuestModel();
         
         // Presenter層 インスタンスの作成
@@ -120,7 +123,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
 
     private void OnUpdate(float deltaTime)
     {
-        _playerModel.OnUpdate(deltaTime);
+        if(_playerModel != null) _playerModel.OnUpdate(deltaTime);
+        if(_surfaceRoot != null) _surfaceRoot.OnUpdate(deltaTime);
+        if(_audioPresenter != null) _audioPresenter.OnUpdate(deltaTime);
     }
 
     #region IDataService
@@ -227,6 +232,17 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         }
     
     #endregion
+    // Title→Surface 仮実装
+    public void HandleEnterToSurface()
+    {
+        LoadScene(SceneType.Surface);
+    }
+    // Surface→Title 仮実装
+    private void HandleBackToTitle()
+    {
+        LoadScene(SceneType.Title);
+    }
+
     #region ISceneService
     
         public event Action<SceneType> OnLoadStart;
@@ -259,8 +275,10 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                 case SceneType.Surface:
                     var surface = _globalStateModel.surface;
                     _surfaceRoot = FindFirstObjectByType<SurfaceRoot>();
-                    _surfaceRoot.Init(surface, _playerModel, _entityModel);
+                    _surfaceRoot.Init(surface, _playerModel, _entityModel, _audioPresenter);
                     _currentSceneRoot = _surfaceRoot;
+                    // タイトルに戻るイベントを購読する
+                    _surfaceRoot.OnBackToTitle += HandleBackToTitle;
                     break;
                 case SceneType.Space:
                     _spaceRoot = FindFirstObjectByType<SpaceRoot>();
@@ -281,7 +299,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
             // Dispose処理
             _sceneSwitcher.OnLoadStart -= HandleOnLoadStart;
             _sceneSwitcher.OnLoadComplete -= HandleOnLoadComplete;
-                
+            if(_surfaceRoot != null) _surfaceRoot.OnBackToTitle -= HandleBackToTitle;
             UnityEngine.Application.Quit();
         }
     

@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Core;
 using Model;
 using DG.Tweening;
 using UnityEngine;
+using R3;
 
 namespace View // 名前空間は大文字から始めるのがC#の一般的な規約です
 {
@@ -14,56 +16,69 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
         [SerializeField] private AudioSource oneShotSource;
         
         [Header("Settings")]
-        [SerializeField] private float musicChangeFadeDuration = 1f;
-        [SerializeField] private float musicStopFadeDuration = 0.5f;
         [SerializeField] private float loopFadeDuration = 0.5f;
         [SerializeField] private float footstepInterval = 0.4f;
 
         private Dictionary<LoopId, AudioSource> _loopSources = new Dictionary<LoopId, AudioSource>();
         
         private AudioDataSO _audioData;
-        
+        private List<MusicId> _trackList;
         private float _lastFootstepTime;
-        private bool _footstepPlaying;
+        // フェードアウト中
+        public bool IsMusicSourceFadeOut;
         private AudioClip _footstepClip;
         
         public void Initialize(AudioDataSO audioData) 
         {
             _audioData = audioData;
-            _footstepPlaying = false;
             _lastFootstepTime = Time.time;
+            _trackList = _audioData.GetMusicIdList();
+            if(_trackList.Count == 0) Debug.LogError("[AudioView] AudioDataSOのトラックリストが空です");
         }
 
-        public void PlayMusic(MusicId id) 
+        public bool IsMusicSourcePlaying()
         {
-            var nextMusicClip = _audioData.GetMusicClip(id);
+            return  musicSource.isPlaying;
+        }
+
+        public MusicId PlayMusic(MusicId currentId, float fadeDuration = 1f) 
+        {
+            var nextId = GetNextMusicId(currentId);
+            var nextMusicClip = _audioData.GetMusicClip(nextId);
+            IsMusicSourceFadeOut = false;
             musicSource.DOKill();
-            
-            if (musicSource.isPlaying)
-            {
-                musicSource.DOFade(0f, musicChangeFadeDuration)
-                    .OnComplete(() => 
-                    {
-                        musicSource.Stop();
-                        musicSource.clip = nextMusicClip;
-                        musicSource.volume = 1f;
-                        musicSource.Play();
-                    });
-            }
-            else
             {
                 musicSource.Stop();
                 musicSource.clip = nextMusicClip;
                 musicSource.volume = 1f;
                 musicSource.Play();
             }
+            return nextId;
+            // 次の曲を取得する
+            MusicId GetNextMusicId(MusicId currentId)
+            {
+                if(!_trackList.Contains(currentId))
+                {
+                    Debug.LogWarning($"[AudioView] トラックID {currentId} がトラックリストに存在しません");
+                    return _trackList[0];
+                }
+                int currentIndex = _trackList.IndexOf(currentId);
+                int nextIndex = (currentIndex + 1) % _trackList.Count;
+                var nextId = _trackList[nextIndex];
+                return nextId;
+            }
         }
         
-        public void StopMusic() 
+        public void StopMusic(float fadeDuration = 1f) 
         {
             musicSource.DOKill();
-            musicSource.DOFade(0f, musicStopFadeDuration)
-                .OnComplete(() => musicSource.Stop());
+            IsMusicSourceFadeOut = true;
+            musicSource.DOFade(0f, fadeDuration)
+                .OnComplete(() =>
+                {
+                    musicSource.Stop();
+                    IsMusicSourceFadeOut = false;
+                });
         }
         
         public void PlayLoop(LoopId id) 
@@ -118,15 +133,14 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             _loopSources.Clear();
         }
         
-        public void PlayFootstep(FootstepId id) 
+        public void PlayFootstep(FootstepId id)
         {
-            _footstepPlaying = true;
-            _footstepClip = _audioData.GetFootstepClip(id);
-        }
-        
-        public void StopFootstep() 
-        {
-            _footstepPlaying = false;
+            if (Time.time - _lastFootstepTime >= footstepInterval)
+            {
+                AudioClip footstepClip = _audioData.GetFootstepClip(id);
+                footstepSource.PlayOneShot(footstepClip);
+                _lastFootstepTime = Time.time;
+            }
         }
         
         public void PlayOneShot(OneShotId id) 
@@ -135,15 +149,6 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             if (clip != null)
             {
                 oneShotSource.PlayOneShot(clip);
-            }
-        }
-        
-        private void Update() 
-        {
-            if (_footstepPlaying && Time.time - _lastFootstepTime >= footstepInterval)
-            {
-                footstepSource.PlayOneShot(_footstepClip);
-                _lastFootstepTime = Time.time;
             }
         }
     }

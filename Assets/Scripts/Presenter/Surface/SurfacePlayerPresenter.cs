@@ -15,11 +15,15 @@ namespace Presenter
         private SurfacePlayerView _playerView;
         private ParallaxView _parallaxView;
         
-        public SurfacePlayerPresenter(PlayerModel playerModel, SurfacePlayerView playerView, ParallaxView parallaxView, CancellationToken cancellationToken)
+        // Presenter
+        private AudioPresenter _audioPresenter;
+        
+        public SurfacePlayerPresenter(PlayerModel playerModel, SurfacePlayerView playerView, ParallaxView parallaxView, AudioPresenter audioPresenter, CancellationToken cancellationToken)
         {
             _playerModel = playerModel;
             _playerView = playerView;
             _parallaxView = parallaxView;
+            _audioPresenter = audioPresenter;
             
             _playerModel.position
                 .Subscribe(pos => _playerView.OnUpdatePosition(pos))

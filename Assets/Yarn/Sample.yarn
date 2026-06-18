@@ -1,11 +1,21 @@
 ﻿title: Sample
 ---
-Guide: Wow! #line:04c37f8 
-Guide: My first ever Yarn script in Unity! #line:02f5b4b 
-
--> Player: Gosh! #line:07a39cc 
--> Player: Incredible! #line:04901a3 
--> Player: I'm amazed! #line:0e73d78 
-
-Guide: Anyway, time to get writing! #line:0bdd1a6 
+Guide: WASDで移動,Eキーでエンティティに話しかけることができます。
+===
+title: Circle
+---
+Circle: ようこそ。ここはParallaxビューのサンプルシーンです。
+-> Player: 開発コンセプトを教えて。
+Circle: 宇宙と神社をテーマとしたインディータイトルを作ります。これはそのプロトタイプです。
+-> Player: どんなゲームになるの？
+Circle: 惑星間を飛び回り、行商を行うゲームになる予定です。このプロトタイプは、その惑星の一つになる予定です。
+===
+title: ThreeJizo
+---
+Player: 3体の地蔵だ。
+Jizo: ...
+Jizo: .........
+Jizo: ...こちら側には何もないが、ただ歩いてみるのもいいだろう。
+Jizo: それに、ここからは星が見える。
+Jizo: ...
 ===

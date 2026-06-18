@@ -48,7 +48,7 @@ namespace Core
     
     public enum FootstepId
     {
-        
+        Default
     }
     
     public enum OneShotId
