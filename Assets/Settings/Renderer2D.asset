@@ -41,7 +41,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
   - {fileID: -97869659697658898}
-  m_RendererFeatureMap: eec36e23104ca4fe
+  - {fileID: 6501216943916207739}
+  m_RendererFeatureMap: eec36e23104ca4fe7b4ee0955df6385a
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2
@@ -72,3 +73,22 @@ MonoBehaviour:
   m_PostProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   m_DefaultMaterialType: 0
   m_DefaultCustomMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+--- !u!114 &6501216943916207739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60406fc9aba67642a0ae95d5f63c11a, type: 3}
+  m_Name: ScanlineFeature
+  m_EditorClassIdentifier: Assembly-CSharp::ScanlineFeature
+  m_Active: 1
+  settings:
+    shader: {fileID: 4800000, guid: ab1840d7f965fbb43b3300ae00a270dd, type: 3}
+    lineCount: 108
+    intensity: 0.32
+    speed: 0.5
+    passEvent: 600

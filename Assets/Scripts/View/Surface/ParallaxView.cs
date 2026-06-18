@@ -180,7 +180,6 @@ namespace View
                             _ => layer.pivotX
                         };
                         float parallaxOffset = (cameraX - layer.pivotX) * (layer.depthFromPlayer);
-                        Debug.Log(parallaxOffset);
                         float origin = pivot + parallaxOffset;
                         if (layer.loop)
                         {

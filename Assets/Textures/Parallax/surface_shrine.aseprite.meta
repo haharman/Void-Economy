@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: surface_shrine
     originalName: 
-    pivot: {x: 0.4989539, y: 0}
+    pivot: {x: 0.518593, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,8 +137,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 956
-      height: 180
+      width: 995
+      height: 196
     spriteID: ab90646055199d0459839a4bf8516fa6
     spriteBone: []
     spriteOutline: []
@@ -167,10 +167,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 2182
+        x: 2143
         y: 0
-        width: 956
-        height: 180
+        width: 995
+        height: 196
       spriteId: ab90646055199d0459839a4bf8516fa6
     linkedCells: []
     tileCells: []
@@ -181,5 +181,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 5318, y: 180}
+  canvasSize: {x: 5318, y: 196}
   previousTextureSize: {x: 1024, y: 256}

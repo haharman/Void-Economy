@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2e1dca523caabd74ebd4dd1bfa0ccf76
+guid: f6df1ed464169b44bbbf8a5c9fdcc130
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6231044458718751821
-    second: circle_0
+      213: -2099776699705934104
+    second: water_parallax_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.59}
   spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: circle_0
+      name: water_parallax_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 41
-        height: 51
+        width: 448
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b3176a0412e689a0800000000000000
-      internalID: -6231044458718751821
+      spriteID: 8eeb26a77381cd2e0800000000000000
+      internalID: -2099776699705934104
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      circle_0: -6231044458718751821
+      water_parallax_0: -2099776699705934104
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -22,7 +22,7 @@ namespace Model
             XGrid = Utils.CalculateXGrid(Position.Value.x);
             IsInteractable = config.IsInteractable;
             DialogueNodeName = config.DialogueNodeName;
-            InteractionGuidePosition = Position.Value + config.InteractionGuideOffsetPosition;
+            InteractionGuidePosition = new Vector2(Position.Value.x, Position.Value.y + config.InteractionGuideOffsetY);
         }
         
         public void OnInteract()

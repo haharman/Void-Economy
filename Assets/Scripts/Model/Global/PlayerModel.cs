@@ -15,8 +15,8 @@ namespace Model
     public class PlayerModel
     {
         // 定数
-        private const float InteractionRange = 1.5f;
-        private const float VelocityFactor = 3f;
+        private const float InteractionRange = 2.5f;
+        private const float VelocityFactor = 3.5f;
         private static readonly Vector2 startPosition = new Vector2(0f, -9f);
         // フィールド
         private GlobalStateModel _globalStateModel;

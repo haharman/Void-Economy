@@ -75,6 +75,56 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 5896804343195893916
+  - m_Id: 30418920900902912
+    m_Key: line:222ea25d
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351591
+  - m_Id: 30418920984788992
+    m_Key: line:b41ea52a
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351592
+  - m_Id: 30420369995186176
+    m_Key: line:9ffd5c8e
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351623
+  - m_Id: 30420370016157696
+    m_Key: line:09cd5bf9
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351624
+  - m_Id: 30421025917222912
+    m_Key: line:1b8799d2
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351634
+  - m_Id: 30421025929805824
+    m_Key: line:8db79ea5
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351635
+  - m_Id: 30421850676772864
+    m_Key: line:1caa2135
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351645
+  - m_Id: 30421850676772865
+    m_Key: line:8a9a2642
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351646
+  - m_Id: 30421850676772866
+    m_Key: line:8d192d31
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351647
+  - m_Id: 30421850676772867
+    m_Key: line:1b292a46
+    m_Metadata:
+      m_Items:
+      - rid: 5896804419173351648
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -113,6 +163,56 @@ MonoBehaviour:
       type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
       data:
         nodeName: Circle
+        tags: []
+    - rid: 5896804419173351591
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: <unknown>
+        tags: []
+    - rid: 5896804419173351592
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: <unknown>
+        tags: []
+    - rid: 5896804419173351623
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Jizo
+        tags: []
+    - rid: 5896804419173351624
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Jizo
+        tags: []
+    - rid: 5896804419173351634
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 5896804419173351635
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 5896804419173351645
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 5896804419173351646
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 5896804419173351647
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 5896804419173351648
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
         tags: []
     - rid: 8448588568856363332
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}

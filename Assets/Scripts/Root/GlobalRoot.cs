@@ -55,6 +55,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
 
     private ISceneRoot _currentSceneRoot;
 
+    /// <summary>
+    /// Runtimeスタート時、タイトルシーンへ遷移させる
+    /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void RuntimeInit()
     {
@@ -229,6 +232,17 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         }
     
     #endregion
+    // Title→Surface 仮実装
+    public void HandleEnterToSurface()
+    {
+        LoadScene(SceneType.Surface);
+    }
+    // Surface→Title 仮実装
+    private void HandleBackToTitle()
+    {
+        LoadScene(SceneType.Title);
+    }
+
     #region ISceneService
     
         public event Action<SceneType> OnLoadStart;
@@ -263,6 +277,8 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     _surfaceRoot = FindFirstObjectByType<SurfaceRoot>();
                     _surfaceRoot.Init(surface, _playerModel, _entityModel, _audioPresenter);
                     _currentSceneRoot = _surfaceRoot;
+                    // タイトルに戻るイベントを購読する
+                    _surfaceRoot.OnBackToTitle += HandleBackToTitle;
                     break;
                 case SceneType.Space:
                     _spaceRoot = FindFirstObjectByType<SpaceRoot>();
@@ -283,7 +299,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
             // Dispose処理
             _sceneSwitcher.OnLoadStart -= HandleOnLoadStart;
             _sceneSwitcher.OnLoadComplete -= HandleOnLoadComplete;
-                
+            if(_surfaceRoot != null) _surfaceRoot.OnBackToTitle -= HandleBackToTitle;
             UnityEngine.Application.Quit();
         }
     

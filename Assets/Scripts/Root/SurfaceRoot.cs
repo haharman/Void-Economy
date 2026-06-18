@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core;
 using Model;
@@ -25,6 +26,9 @@ namespace Root
         private SurfacePlayerPresenter _surfacePlayerPresenter;
         private EntityPresenter _entityPresenter;
         private AudioPresenter _audioPresenter;
+        
+        // Titleに戻るイベント（仮実装）
+        public event Action OnBackToTitle;
         
         public void Init(Surface surface, PlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
         {
@@ -62,6 +66,11 @@ namespace Root
         public void OnUpdate(float deltaTime)
         {
             _interactionGuideModel.OnUpdate(deltaTime);
+        }
+
+        public void BackToTitle()
+        {
+            OnBackToTitle?.Invoke();
         }
     }
 }

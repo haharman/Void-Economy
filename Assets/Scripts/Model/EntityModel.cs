@@ -38,7 +38,7 @@ namespace Model
                 if (Mathf.Abs(entity.XGrid - xGrid) > 1) continue;
                 //Debug.Log("[EntityModel] GetInteractiveEntity xGrid一致");
                 float distanceSqr = (entity.Position.Value - position).sqrMagnitude;
-                // Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
+                //Debug.Log("[EntityModel] GetInteractiveEntity distanceSqr: " + distanceSqr + " rangeSqr: " + closestDistanceSqr);
                 if (distanceSqr < closestDistanceSqr)
                 {
                     closestEntity = entity;
