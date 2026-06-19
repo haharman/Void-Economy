@@ -1,4 +1,5 @@
 # Void Economy
+<img width="2560" height="1600" alt="screenshot" src="https://github.com/user-attachments/assets/d9f646bd-f4de-475a-9d25-4872ca1a1ccd" />
 
 > 宇宙と神社をテーマにした、2Dピクセルアートの探索アドベンチャー（プロトタイプ）
 
