@@ -271,6 +271,8 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     _titleRoot = FindFirstObjectByType<TitleRoot>();
                     _titleRoot.Init(this, this, this);
                     _currentSceneRoot = _titleRoot;
+                    // ここ仮実装
+                    LoadScene(SceneType.Surface);
                     break;
                 case SceneType.Surface:
                     var surface = _globalStateModel.surface;
