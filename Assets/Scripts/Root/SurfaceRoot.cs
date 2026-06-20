@@ -11,6 +11,9 @@ namespace Root
 {
     public class SurfaceRoot : MonoBehaviour, ISceneRoot
     {
+        // Service
+        private ISceneService _sceneService;
+        
         // Model
         private EntityModel _entityModel;
         private InteractionGuideModel _interactionGuideModel;
@@ -30,8 +33,9 @@ namespace Root
         // Titleに戻るイベント（仮実装）
         public event Action OnBackToTitle;
         
-        public void Init(Surface surface, PlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
+        public void Init(ISceneService sceneService,Surface surface, PlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
         {
+            _sceneService = sceneService;
             _currentSurfaceView = null;
             foreach (var surfaceView in surfaceViewList)
             {
@@ -68,9 +72,6 @@ namespace Root
             _interactionGuideModel.OnUpdate(deltaTime);
         }
 
-        public void BackToTitle()
-        {
-            OnBackToTitle?.Invoke();
-        }
+        public void LoadTitle() => _sceneService.LoadScene(SceneType.Title);
     }
 }

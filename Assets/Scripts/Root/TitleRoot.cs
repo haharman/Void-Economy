@@ -30,5 +30,8 @@ namespace Root
         {
             
         }
+        
+        public void LoadSurface() => _sceneService.LoadScene(SceneType.Surface);
+        public void QuitGame() => _quitService.QuitGame();
     }
 }
