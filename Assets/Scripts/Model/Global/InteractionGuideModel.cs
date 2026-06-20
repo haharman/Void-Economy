@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Model
 {
-    public class InteractionGuideModel : IUpdatable
+    public class InteractionGuideModel
     {
-        private PlayerModel _playerModel;
+        private SurfacePlayerModel _playerModel;
 
         private Entity _currentTarget => _playerModel.currentTarget;
         private Entity _previousTarget;
@@ -15,12 +15,12 @@ namespace Model
         public event Action<UnityEngine.Vector2> OnInteractionGuideEnabled;
         public event Action OnInteractionGuideDisabled;
 
-        public InteractionGuideModel(PlayerModel pM)
+        public InteractionGuideModel(SurfacePlayerModel pM)
         {
             _playerModel = pM;
         }
 
-        public void OnUpdate(float deltaTime)
+        public void Tick(float deltaTime)
         {
             // ターゲットあり && (前フレームターゲットなし || 前フレームターゲットと現在ターゲットが異なる)
             // 場合にInteractionGuideを有効化

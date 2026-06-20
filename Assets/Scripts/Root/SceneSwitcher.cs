@@ -25,6 +25,11 @@ namespace Model
                 Debug.LogWarning($"[SceneSwitcher] 既にロード中です。({sceneName} への遷移をキャンセルしました)");
                 return;
             }
+            if(SceneManager.GetActiveScene().name == sceneName)
+            {
+                Debug.LogWarning($"[SceneSwitcher] 既に {sceneName} がアクティブです。ロードをキャンセルしました。");
+                return;
+            }
 
             _isLoading = true;
             OnLoadStart?.Invoke(sceneType);

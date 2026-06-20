@@ -9,10 +9,11 @@ using UnityEngine.SceneManagement;
 
 namespace Root
 {
-    public class SurfaceRoot : MonoBehaviour, ISceneRoot
+    public class SurfaceRoot : MonoBehaviour
     {
         // Service
         private ISceneService _sceneService;
+        private IUpdatableService _updatableService;
         
         // Model
         private EntityModel _entityModel;
@@ -28,14 +29,13 @@ namespace Root
         // Presenter
         private SurfacePlayerPresenter _surfacePlayerPresenter;
         private EntityPresenter _entityPresenter;
+        private InteractionGuidePresenter _interactionGuidePresenter;
         private AudioPresenter _audioPresenter;
         
-        // Titleに戻るイベント（仮実装）
-        public event Action OnBackToTitle;
-        
-        public void Init(ISceneService sceneService,Surface surface, PlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
+        public void Init(ISceneService sceneService, IUpdatableService updatableService, Surface surface, SurfacePlayerModel playerModel, EntityModel entityModel, AudioPresenter audioPresenter)
         {
             _sceneService = sceneService;
+            _updatableService = updatableService;
             _currentSurfaceView = null;
             foreach (var surfaceView in surfaceViewList)
             {
@@ -56,22 +56,27 @@ namespace Root
             var entityConfigList = _currentSurfaceView.GetEntityConfigList();
             var entityViewList = _currentSurfaceView.GetEntityViewList();
             var entityModelList = _entityModel.Init(entityConfigList); // Entity生成に必要な一覧のデータを渡す
+            
             // Presenterのインスタンスを作成
             _audioPresenter = audioPresenter;
             _entityPresenter = new EntityPresenter(entityModelList, entityViewList, this.destroyCancellationToken);
             _surfacePlayerPresenter = new SurfacePlayerPresenter(playerModel, surfacePlayerView, parallaxView,
                 _audioPresenter, this.destroyCancellationToken);
+            _interactionGuidePresenter = new InteractionGuidePresenter(interactionGuideView, _interactionGuideModel);
+            
+            // Presenter層 IUpdatable登録
+            updatableService.Register(_interactionGuidePresenter);
+            updatableService.Register(_surfacePlayerPresenter);
             
             // Viewの初期化
             surfacePlayerView.Initialize();
             interactionGuideView.Initialize(_interactionGuideModel);
         }
 
-        public void OnUpdate(float deltaTime)
+        public void LoadTitle()
         {
-            _interactionGuideModel.OnUpdate(deltaTime);
+            _updatableService.ClearUpdatables();
+            _sceneService.LoadScene(SceneType.Title);
         }
-
-        public void LoadTitle() => _sceneService.LoadScene(SceneType.Title);
     }
 }

@@ -15,13 +15,14 @@ using Yarn.Unity;
 public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitService
 {
     // Root
-    [Header("Root")]
     private TitleRoot _titleRoot;
     private SurfaceRoot _surfaceRoot;
     private SpaceRoot _spaceRoot;
+    
+    // Service(Root層)
     private DataPersister _dataPersister;
     private SceneSwitcher _sceneSwitcher;
-    
+    private UpdatableHub _updatableHub;
     
     // Model
     private GlobalStateModel _globalStateModel;
@@ -31,8 +32,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
     private EconomyEngine _economyEngine;
     private EntityModel _entityModel;
     private YarnModel _yarnModel;
-    
-    private PlayerModel _playerModel;
+    private SurfacePlayerModel _surfacePlayerModel;
+    private SpacePlayerModel _spacePlayerModel;
+
     private InventoryModel _inventoryModel;
     
     private SaveData _loadedData;
@@ -53,8 +55,6 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
     
     [SerializeField] private DialogueRunner dialogueRunner;
     [SerializeField] private InMemoryVariableStorage yarnVariableStorage;
-
-    private ISceneRoot _currentSceneRoot;
 
     #region 初期化
     
@@ -87,6 +87,8 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         // Root層 インスタンスの作成
         _dataPersister = new DataPersister(defaultSaveData.data.DeepCopy());
         _sceneSwitcher = new SceneSwitcher();
+        _updatableHub = new UpdatableHub();
+        
         // ISceneService
         _sceneSwitcher.OnLoadStart += HandleOnLoadStart;
         _sceneSwitcher.OnLoadComplete += HandleOnLoadComplete;
@@ -97,13 +99,18 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
         _physicsEngine = new PhysicsEngine();
         _yarnModel = new YarnModel(dialogueRunner ,yarnVariableStorage, _globalStateModel);
         _entityModel = new EntityModel(_yarnModel);
-       _inventoryModel = new InventoryModel();
-        _playerModel = new PlayerModel(_globalStateModel, _entityModel, _physicsEngine);
-        _audioPresenter = new AudioPresenter(audioView, _playerModel, this.destroyCancellationToken);
+        _inventoryModel = new InventoryModel();
+        _surfacePlayerModel = new SurfacePlayerModel(_entityModel);
+        _spacePlayerModel = new SpacePlayerModel(_entityModel, _physicsEngine);
+        
         _questModel = new QuestModel();
         
         // Presenter層 インスタンスの作成
-        _inputPresenter = new InputPresenter(inputView, _playerModel, _yarnModel, _globalStateModel);
+        _audioPresenter = new AudioPresenter(audioView, _surfacePlayerModel, this.destroyCancellationToken);
+        _inputPresenter = new InputPresenter(this, this, inputView, _surfacePlayerModel, _yarnModel, _globalStateModel);
+        
+        // Presenter層 IUpdatable登録
+        _updatableHub.RegisterGlobal(_audioPresenter);
         
         // View層の初期化
         audioView.Initialize(audioData);
@@ -114,6 +121,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
     // シーンのルートクラスを探して、初期化する
     private void InitScene(SceneType sceneType)
     {
+        _updatableHub.ClearUpdatables();
         switch (sceneType)
         {
             case SceneType.Title:
@@ -123,8 +131,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     Debug.LogError("[GlobalRoot] TitleRootが見つかりませんでした");
                     return;
                 }
-                _titleRoot.Init(this, this, this);
-                _currentSceneRoot = _titleRoot;
+                _titleRoot.Init(this, this, this, _updatableHub);
                 break;
             case SceneType.Surface:
                 var surface = _globalStateModel.surface;
@@ -134,8 +141,7 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     Debug.LogError("[GlobalRoot] SurfaceRootが見つかりませんでした");
                     return;
                 }
-                _surfaceRoot.Init(this, surface, _playerModel, _entityModel, _audioPresenter);
-                _currentSceneRoot = _surfaceRoot;
+                _surfaceRoot.Init(this, _updatableHub, surface, _surfacePlayerModel, _entityModel, _audioPresenter);
                 break;
             case SceneType.Space:
                 _spaceRoot = FindFirstObjectByType<SpaceRoot>();
@@ -145,7 +151,6 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
                     return;
                 }
                 _spaceRoot.Init();
-                _currentSceneRoot = _spaceRoot;
                 break;
             default :
                 Debug.LogWarning($"[GlobalRoot] 未定義のシーン: {sceneType}");
@@ -157,17 +162,9 @@ public class GlobalRoot : MonoBehaviour, IDataService, ISceneService, IQuitServi
     
     private void Update()
     {
-        var deltaTime = Time.deltaTime;
-        OnUpdate(deltaTime);
-        _currentSceneRoot?.OnUpdate(deltaTime);
+        _updatableHub.OnUpdate();
     }
     
-    private void OnUpdate(float deltaTime)
-    {
-        if(_playerModel != null) _playerModel.OnUpdate(deltaTime);
-        if(_surfaceRoot != null) _surfaceRoot.OnUpdate(deltaTime);
-        if(_audioPresenter != null) _audioPresenter.OnUpdate(deltaTime);
-    }
 
     #region IDataService
         // データの集約（Pack）と保存（Save）

@@ -28,7 +28,7 @@ namespace Presenter
         private float  _lastMusicStartTime;
         private float _lastMusicStopTime;
         
-        public AudioPresenter(AudioView view, PlayerModel playerModel, CancellationToken cancellationToken)
+        public AudioPresenter(AudioView view, SurfacePlayerModel playerModel, CancellationToken cancellationToken)
         {
             _view = view;
             _lastMusicStartTime = Time.time;

@@ -12,16 +12,21 @@ namespace Presenter
     /// </summary>
     public class InputPresenter : IDisposable
     {
+        private ISceneService _sceneService;
+        private IQuitService _quitService;
         private readonly InputView _inputView;
-        private readonly PlayerModel _playerModel;
+        private readonly SurfacePlayerModel _playerModel;
+        private readonly SpacePlayerModel _spacePlayerModel;
         private readonly YarnModel _yarnModel;
         private readonly GlobalStateModel _globalStateModel;
 
         private Vector2 _moveInputInDialogue; // ダイアログ中の移動入力を一時的に保存する変数
 
-        public InputPresenter(InputView inputView, PlayerModel playerModel, YarnModel yarnModel, GlobalStateModel globalStateModel)
+        public InputPresenter(ISceneService sceneService, IQuitService quitService, InputView inputView, SurfacePlayerModel playerModel, YarnModel yarnModel, GlobalStateModel globalStateModel)
         {
-            Debug.Log("[PlayerInputPresenter] Init");
+            Debug.Log("[InputPresenter] Init");
+            _sceneService = sceneService;
+            _quitService = quitService;
             _inputView = inputView;
             _playerModel = playerModel;
             _yarnModel = yarnModel;
@@ -41,7 +46,6 @@ namespace Presenter
             _inputView.OnMoveChanged += HandleMove;
             _inputView.OnInteractPressed += HandleInteract;
             _inputView.OnMenuPressed += HandleMenu;
-            _inputView.OnForceExitPressed += HandleForceExit;
             
             _globalStateModel.OnDialogueStarted += HandleDialogueStarted;
             _globalStateModel.OnDialogueCompleted += HandleDialogueCompleted;
@@ -52,7 +56,6 @@ namespace Presenter
             _inputView.OnMoveChanged -= HandleMove;
             _inputView.OnInteractPressed -= HandleInteract;
             _inputView.OnMenuPressed -= HandleMenu;
-            _inputView.OnForceExitPressed -= HandleForceExit;
             
             _globalStateModel.OnDialogueStarted -= HandleDialogueStarted;
             _globalStateModel.OnDialogueCompleted -= HandleDialogueCompleted;
@@ -67,7 +70,7 @@ namespace Presenter
                     _playerModel.moveInput = input;
                     break;
                 case InputState.Space:
-                    _playerModel.Fly(input);
+                    _spacePlayerModel.Fly(input);
                     break;
                 default:
                     break;
@@ -88,14 +91,8 @@ namespace Presenter
 
         private void HandleMenu()
         {
-            _playerModel.OpenMenu();
-            Debug.Log("[PlayerInputPresenter] Open Menu");
-        }
-
-        private void HandleForceExit()
-        {
-            _playerModel.ForceExit();
-            Debug.LogWarning("[PlayerInputPresenter] Force Exit");
+            Debug.Log("[InputPresenter] Open Menu");
+            _sceneService.LoadScene(SceneType.Title);
         }
         
         private void HandleDialogueStarted()
