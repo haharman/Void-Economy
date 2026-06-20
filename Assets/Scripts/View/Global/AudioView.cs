@@ -18,6 +18,10 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
         [Header("Settings")]
         [SerializeField] private float loopFadeDuration = 0.5f;
         [SerializeField] private float footstepInterval = 0.4f;
+        [SerializeField] private float musicVolume = 0.5f;
+        [SerializeField] private float footstepVolume = 1f;
+        [SerializeField] private float oneShotVolume = 1f;
+        [SerializeField] private float loopVolume = 0.5f;
 
         private Dictionary<LoopId, AudioSource> _loopSources = new Dictionary<LoopId, AudioSource>();
         
@@ -50,7 +54,7 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             {
                 musicSource.Stop();
                 musicSource.clip = nextMusicClip;
-                musicSource.volume = 1f;
+                musicSource.volume = musicVolume;
                 musicSource.Play();
             }
             return nextId;
@@ -69,7 +73,7 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             }
         }
         
-        public void StopMusic(float fadeDuration = 1f) 
+        public void StopMusic(float fadeDuration = 1f)
         {
             musicSource.DOKill();
             IsMusicSourceFadeOut = true;
@@ -80,6 +84,22 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
                     IsMusicSourceFadeOut = false;
                 });
         }
+
+        public void PauseMusic()
+        {
+            if (musicSource.isPlaying)
+            {
+                musicSource.Pause();
+            }
+        }
+
+        public void ResumeMusic()
+        {
+            if (!musicSource.isPlaying && musicSource.clip != null)
+            {
+                musicSource.UnPause();
+            }
+        }
         
         public void PlayLoop(LoopId id) 
         {
@@ -87,7 +107,7 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             {
                 if (!source.isPlaying)
                 {
-                    source.volume = 1f;
+                    source.volume = loopVolume;
                     source.Play();
                 }
             }
@@ -96,7 +116,7 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
                 var newSource = gameObject.AddComponent<AudioSource>();
                 newSource.clip = _audioData.GetLoopClip(id);
                 newSource.loop = true;
-                newSource.volume = 1f;
+                newSource.volume = loopVolume;
                 newSource.Play();
                 _loopSources[id] = newSource;
             }

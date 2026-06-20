@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: View::View.EntityView
   isInteractable: 1
-  dialogueNodeName: ThreeJizo2
+  dialogueNodeName: ThreeJizo
   entityTransform: {fileID: 1449367271}
   interactionGuideOffsetY: 3
 --- !u!212 &1449367273

@@ -8,6 +8,7 @@ namespace View
         [SerializeField] private Transform playerTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private float animationSpeed = 0.65f;
         
         private const float WalkingVelocityThreshold = 0.1f;
         private static readonly int WalkingHash = Animator.StringToHash("Walking");
@@ -17,6 +18,7 @@ namespace View
         public void Initialize()
         {
             _defaultScaleX = playerTransform.localScale.x;
+            animator.speed = animationSpeed;
         }
         
         public void OnUpdateVelocity(float xVelocity)

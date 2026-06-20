@@ -27,13 +27,17 @@ namespace Presenter
         private float _pauseDurationLimit = 6;//00
         private float  _lastMusicStartTime;
         private float _lastMusicStopTime;
+        private bool _hadFocusLastFrame;
+        // フォーカスロス前に再生中だったか
+        private bool _wasPlayingBeforeFocusLoss;
         
         public AudioPresenter(AudioView view, SurfacePlayerModel playerModel, CancellationToken cancellationToken)
         {
             _view = view;
             _lastMusicStartTime = Time.time;
             _lastMusicStopTime = Time.time;
-            
+            _hadFocusLastFrame = Application.isFocused;
+
             playerModel.position
                 .DistinctUntilChanged()
                 .Skip(1)
@@ -43,6 +47,27 @@ namespace Presenter
         
         public void OnUpdate(float deltaTime)
         {
+            bool isFocused = Application.isFocused;
+            bool focusLostThisFrame = _hadFocusLastFrame && !isFocused;
+            bool focusRegainedThisFrame = !_hadFocusLastFrame && isFocused;
+            _hadFocusLastFrame = isFocused;
+
+            if (focusLostThisFrame)
+            {
+                _wasPlayingBeforeFocusLoss = _isMusicSourcePlaying;
+                _view.PauseMusic();
+            }
+            else if (focusRegainedThisFrame && _wasPlayingBeforeFocusLoss)
+            {
+                _view.ResumeMusic();
+            }
+
+            // フォーカスが外れている間は曲管理ロジックを止める
+            if (!isFocused)
+            {
+                return;
+            }
+
             //Debug.Log("[AudioPresenter] OnUpdate]");
             var currentMusicDuration = Time.time - _lastMusicStartTime;
             // 再生が自然に終了したとき
