@@ -6,10 +6,10 @@ using R3;
 
 namespace Presenter
 {
-    public class SurfacePlayerPresenter
+    public class SurfacePlayerPresenter : IUpdatable
     {
         // Model
-        private PlayerModel _playerModel;
+        private SurfacePlayerModel _playerModel;
         
         // View
         private SurfacePlayerView _playerView;
@@ -18,7 +18,7 @@ namespace Presenter
         // Presenter
         private AudioPresenter _audioPresenter;
         
-        public SurfacePlayerPresenter(PlayerModel playerModel, SurfacePlayerView playerView, ParallaxView parallaxView, AudioPresenter audioPresenter, CancellationToken cancellationToken)
+        public SurfacePlayerPresenter(SurfacePlayerModel playerModel, SurfacePlayerView playerView, ParallaxView parallaxView, AudioPresenter audioPresenter, CancellationToken cancellationToken)
         {
             _playerModel = playerModel;
             _playerView = playerView;
@@ -32,6 +32,11 @@ namespace Presenter
             _playerModel.velocity
                 .Subscribe(vel => _playerView.OnUpdateVelocity(vel.x))
                 .RegisterTo(cancellationToken);
+        }
+
+        public void OnUpdate(float deltaTime)
+        {
+            _playerModel.Tick(deltaTime);
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Root
 {
-    public class TitleRoot : MonoBehaviour, ISceneRoot
+    public class TitleRoot : MonoBehaviour
     {
         private ISceneService _sceneService;
         private IDataService _dataService;
@@ -17,7 +17,7 @@ namespace Root
         
         private TitlePresenter _presenter;
 
-        public void Init(IDataService dataService, IQuitService quitService, ISceneService sceneService)
+        public void Init(IDataService dataService, IQuitService quitService, ISceneService sceneService, IUpdatableService updatableService)
         {
             Debug.Log("[TitleRoot] Init");
             _dataService = dataService;
@@ -26,9 +26,7 @@ namespace Root
             _presenter = new TitlePresenter(view, _sceneService, _dataService, _quitService);
         }
 
-        public void OnUpdate(float deltaTime)
-        {
-            
-        }
+        public void LoadSurface() => _sceneService.LoadScene(SceneType.Surface);
+        public void QuitGame() => _quitService.QuitGame();
     }
 }

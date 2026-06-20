@@ -12,14 +12,13 @@ namespace Model
     /// <summary>
     /// プレイヤーの状態を保持するModel。
     /// </summary>
-    public class PlayerModel
+    public class SpacePlayerModel
     {
         // 定数
         private const float InteractionRange = 2.5f;
         private const float VelocityFactor = 3.5f;
         private static readonly Vector2 startPosition = new Vector2(0f, -9f);
         // フィールド
-        private GlobalStateModel _globalStateModel;
         private EntityModel _entityModel;
         private IPhysicsSource _physicsSource;
         
@@ -32,9 +31,8 @@ namespace Model
         public Entity currentTarget { get; private set; }
         
         
-        public PlayerModel(GlobalStateModel globalStateModel, EntityModel entityModel, IPhysicsSource physicsSource)
+        public SpacePlayerModel(EntityModel entityModel, IPhysicsSource physicsSource)
         {
-            _globalStateModel = globalStateModel;
             _entityModel = entityModel;
             _physicsSource = physicsSource;
             

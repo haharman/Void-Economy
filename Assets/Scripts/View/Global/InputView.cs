@@ -29,8 +29,6 @@ namespace View
         [SerializeField] private InputActionReference moveAction;
         [Tooltip("Menu アクション (例: Escキー / Gamepad Start)")]
         [SerializeField] private InputActionReference menuAction;
-        [Tooltip("ForceExit アクション (例: @キー / Gamepad Select)")]
-        [SerializeField] private InputActionReference forceExitAction;
         
         private Vector2 _lastSentMoveInput;
         private const float SqrChangeThreshold = 0.0001f;
@@ -40,7 +38,6 @@ namespace View
             // 各アクションのコールバック登録と有効化
             RegisterAction(interactAction, HandleInteract);
             RegisterAction(menuAction, HandleMenu);
-            RegisterAction(forceExitAction, HandleForceExit);
 
             // Moveは継続的な値の取得を行うため、有効化のみ行う
             if (moveAction != null)
@@ -54,7 +51,6 @@ namespace View
             // 各アクションのコールバック解除と無効化
             UnregisterAction(interactAction, HandleInteract);
             UnregisterAction(menuAction, HandleMenu);
-            UnregisterAction(forceExitAction, HandleForceExit);
 
             if (moveAction != null)
             {

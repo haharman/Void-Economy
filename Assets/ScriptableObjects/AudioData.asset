@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::Core.AudioDataSO
   musicList:
   - id: 0
-    clip: {fileID: 8300000, guid: e7a3d77d4e0af174b94a5a1be5631329, type: 3}
+    clip: {fileID: 8300000, guid: 3e8f5e54c8ec72b459ed330b6d1eef59, type: 3}
   loopList: []
   footStepList:
   - id: 0
     clips:
-    - {fileID: 8300000, guid: 7bc98952b89eff141b08e0a2090b0ea5, type: 3}
+    - {fileID: 8300000, guid: a2d33fad01ce27849b1e35d742a26534, type: 3}
+    - {fileID: 8300000, guid: 8a5a6d72bb624644ab6e43a0a1c45440, type: 3}
+    - {fileID: 8300000, guid: 97b51742fbce950409478bdce530a50d, type: 3}
+    - {fileID: 8300000, guid: e03295e7c9c25e54ea065153ddf35822, type: 3}
   oneShotList: []
