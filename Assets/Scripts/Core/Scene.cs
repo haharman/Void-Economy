@@ -2,6 +2,7 @@ namespace Core
 {
     public enum SceneType
     {
+        None,
         Title,
         Surface,
         Space

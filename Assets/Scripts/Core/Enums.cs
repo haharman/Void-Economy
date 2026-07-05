@@ -1,5 +1,12 @@
 namespace Core
 {
+    public enum SystemType
+    {
+        PC,
+        Mobile,
+        Switch
+    }
+
     public enum SceneState
     {
         ToTitle,

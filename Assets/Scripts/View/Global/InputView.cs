@@ -1,4 +1,5 @@
 using System;
+using Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,49 +17,49 @@ namespace View
     public class InputView : MonoBehaviour
     {
         // Presenterが購読するイベント群
-        public event Action OnInteractPressed;
-        public event Action OnMenuPressed;
-        public event Action OnForceExitPressed;
-        public event Action<Vector2> OnMoveChanged;
+        public event Action OnPlayerSubmitPressed;
+        public event Action OnPlayerCancelPressed;
+        public event Action OnUISubmitPressed;
+        public event Action OnUICancelPressed;
         
-
-        [Header("Input Action References")]
-        [Tooltip("Interact アクション (例: Eキー / Gamepad South)")]
-        [SerializeField] private InputActionReference interactAction;
-        [Tooltip("Move アクション (例: WASD / Gamepad Left Stick)")]
+        public event Action<Vector2> OnPlayerMoveChanged;
+        public event Action<Vector2> OnUIMoveChanged;
+        
+        [SerializeField] private InputActionAsset inputActionAsset;
+        [SerializeField] private InputActionReference submitAction;
         [SerializeField] private InputActionReference moveAction;
-        [Tooltip("Menu アクション (例: Escキー / Gamepad Start)")]
-        [SerializeField] private InputActionReference menuAction;
+        [SerializeField] private InputActionReference cancelAction;
+        [SerializeField] private InputActionReference uiSubmitAction;
+        [SerializeField] private InputActionReference uiMoveAction;
+        [SerializeField] private InputActionReference uiCancelAction;
+
+        private InputActionMap _playerMap;
+        private InputActionMap _uiMap;
         
         private Vector2 _lastSentMoveInput;
         private const float SqrChangeThreshold = 0.0001f;
+        
+        // メニューを閉じたときなど、値が変化していないが入力を取得したいときに用いる
+        public Vector2 CurrentPlayerMove => moveAction.action.ReadValue<Vector2>();
 
-        private void OnEnable()
+        
+        private InputState _previousInputState = InputState.Disable;
+        public InputState currentInputState = InputState.UI;
+        public void Initialize()
         {
+            _playerMap = inputActionAsset.FindActionMap("Player");
+            _uiMap = inputActionAsset.FindActionMap("UI");
+            if(_playerMap == null) Debug.LogWarning("[InputView] Player Input Map not found");
+            if(_uiMap == null) Debug.LogWarning("[InputView] UI Input Map not found");
+
             // 各アクションのコールバック登録と有効化
-            RegisterAction(interactAction, HandleInteract);
-            RegisterAction(menuAction, HandleMenu);
-
-            // Moveは継続的な値の取得を行うため、有効化のみ行う
-            if (moveAction != null)
-            {
-                moveAction.action.Enable();
-            }
+            RegisterAction(submitAction, HandleSubmit);
+            RegisterAction(cancelAction, HandleCancel);
+            RegisterAction(uiSubmitAction, HandleUISubmit);
+            RegisterAction(uiCancelAction, HandleUICancel);
         }
 
-        private void OnDisable()
-        {
-            // 各アクションのコールバック解除と無効化
-            UnregisterAction(interactAction, HandleInteract);
-            UnregisterAction(menuAction, HandleMenu);
-
-            if (moveAction != null)
-            {
-                moveAction.action.Disable();
-            }
-        }
-
-        private void Update()
+        public void OnUpdate()
         {
             // 移動値の読み取りとイベント発行
             // 毎フレーム入力をチェックし、入力がある（ゼロベクトルではない）場合、または
@@ -68,15 +69,67 @@ namespace View
                 Vector2 currentMoveInput = moveAction.action.ReadValue<Vector2>();
                 if((currentMoveInput - _lastSentMoveInput).sqrMagnitude > SqrChangeThreshold){
                     _lastSentMoveInput = currentMoveInput;
-                    OnMoveChanged?.Invoke(currentMoveInput);
+                    OnPlayerMoveChanged?.Invoke(currentMoveInput);
                 }
             }
-            else
+            if (uiMoveAction != null && uiMoveAction.action.enabled)
             {
-                Debug.LogWarning($"[PlayerInputView] Moveアクションが未設定または無効", this);
+                Vector2 currentMoveInput = uiMoveAction.action.ReadValue<Vector2>();
+                if((currentMoveInput - _lastSentMoveInput).sqrMagnitude > SqrChangeThreshold){
+                    _lastSentMoveInput = currentMoveInput;
+                    OnUIMoveChanged?.Invoke(currentMoveInput);
+                }
+            }
+            if(currentInputState != _previousInputState)
+            {
+                switch (currentInputState)
+                {
+                    case InputState.Surface:
+                        _playerMap.Enable();
+                        _uiMap.Disable();
+                        break;
+                    case InputState.Space:
+                        _playerMap.Enable();
+                        _uiMap.Disable();
+                        break;
+                    case InputState.Dialogue:
+                        _playerMap.Enable();
+                        _uiMap.Disable();
+                        break;
+                    case InputState.UI:
+                        _uiMap.Enable();
+                        _playerMap.Disable();
+                        break;
+                    case InputState.Disable:
+                        _playerMap.Disable();
+                        _uiMap.Disable();
+                        break;
+                    default:
+                        Debug.LogError("[InputPresenter] 定義されていないInputStateです");
+                        break;
+                }
+                // ActionMapが切り替わるため、入力の履歴をリセット→Moveが通知される
+                _lastSentMoveInput = Vector2.zero;
+                
+                _previousInputState = currentInputState;
             }
         }
 
+        private void OnDisable()
+        {
+            Debug.Log("[InputView] Disabled");
+            // 各アクションのコールバック解除と無効化
+            UnregisterAction(submitAction, HandleSubmit);
+            UnregisterAction(cancelAction, HandleCancel);
+            UnregisterAction(uiSubmitAction, HandleUISubmit);
+            UnregisterAction(uiCancelAction, HandleUICancel);
+
+            if (moveAction != null)
+            {
+                moveAction.action.Disable();
+            }
+        }
+        
         // --- ヘルパーメソッド ---
 
         /// <summary>
@@ -108,16 +161,28 @@ namespace View
         }
 
         // --- ハンドラー ---
-        private void HandleInteract(InputAction.CallbackContext context)
+        private void HandleSubmit(InputAction.CallbackContext context)
         {
-            OnInteractPressed?.Invoke();
+            Debug.Log("[InputView] Player/Submit");
+            OnPlayerSubmitPressed?.Invoke();
         }
 
-        private void HandleMenu(InputAction.CallbackContext context)
+        private void HandleCancel(InputAction.CallbackContext context)
         {
-            OnMenuPressed?.Invoke();
+            Debug.Log("[InputView] Player/Cancel");
+            OnPlayerCancelPressed?.Invoke();
         }
-        
-        private void HandleForceExit(InputAction.CallbackContext context) => OnForceExitPressed?.Invoke();
+
+        private void HandleUISubmit(InputAction.CallbackContext context)
+        {
+            Debug.Log("[InputView] UI/Submit");
+            OnUISubmitPressed?.Invoke();
+        }
+
+        private void HandleUICancel(InputAction.CallbackContext context)
+        {
+            Debug.Log("[InputView] UI/Cancel");
+            OnUICancelPressed?.Invoke();
+        }
     }
 }

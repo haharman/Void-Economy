@@ -38,13 +38,18 @@ namespace Presenter
             _lastMusicStopTime = Time.time;
             _hadFocusLastFrame = Application.isFocused;
 
-            playerModel.position
+            playerModel.Position
                 .DistinctUntilChanged()
                 .Skip(1)
                 .Subscribe(_ => _view.PlayFootstep(FootstepId.Default))
                 .RegisterTo(cancellationToken);
         }
-        
+
+        public void Initialize(AudioDataSO audioData)
+        {
+            _view.Initialize(audioData);
+        }
+
         public void OnUpdate(float deltaTime)
         {
             bool isFocused = Application.isFocused;

@@ -8,7 +8,7 @@ namespace Model
     {
         private SurfacePlayerModel _playerModel;
 
-        private Entity _currentTarget => _playerModel.currentTarget;
+        private Entity _currentTarget => _playerModel.CurrentTarget;
         private Entity _previousTarget;
         private bool _wasTargetNull = false;
 
@@ -32,7 +32,7 @@ namespace Model
                 _previousTarget = _currentTarget;
             }
             // 無効化
-            else if(!_wasTargetNull && _playerModel.currentTarget == null)
+            else if(!_wasTargetNull && _playerModel.CurrentTarget == null)
             {
                 Debug.Log("[InteractionGuideModel] InvokeDisabled");
                 OnInteractionGuideDisabled?.Invoke();

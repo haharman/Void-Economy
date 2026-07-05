@@ -13,11 +13,20 @@ MonoBehaviour:
   m_Name: DefaultSaveData
   m_EditorClassIdentifier: Model::Model.DefaultSaveDataSO
   data:
+    info:
+      id: 0
+      name: 
+      savedAt: 
+      autoSave: 0
+      savedAtUnixMs: 0
+      screenshotFileName: 
+      version: 
+      sceneName: SurfaceScene
+    global:
+      sceneType: 0
     player:
-      scale: 1
+      isSurface: 0
       position: {x: 0, y: 0}
-      velocity: {x: 0, y: 0}
-      acceleration: {x: 0, y: 0}
       forward: {x: 0, y: 0}
-      velocityForward: {x: 0, y: 0}
+      velocity: {x: 0, y: 0}
     yarn: []

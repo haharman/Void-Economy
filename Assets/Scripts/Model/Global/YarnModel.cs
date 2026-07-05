@@ -12,6 +12,9 @@ namespace Model
         private InMemoryVariableStorage _inMemoryVariableStorage;
         private GlobalStateModel _globalStateModel;
         
+        // ダイアログ開始前の_globalStateModel.CurrentInputState.Valueを保持する
+        private InputState _previousInputState;
+        
         
         public YarnModel(DialogueRunner dialogueRunner, InMemoryVariableStorage inMemoryVariableStorage, GlobalStateModel globalStateModel)
         {
@@ -23,7 +26,7 @@ namespace Model
             _dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         }
 
-        public bool isDialogueRunning => _dialogueRunner.IsDialogueRunning;
+        public bool IsDialogueRunning => _dialogueRunner.IsDialogueRunning;
         
         public void StartDialogue(string nodeName)
         {
@@ -39,14 +42,15 @@ namespace Model
         private void OnDialogueStart()
         {
             Debug.Log("[YarnModel] OnDialogueStart");
-            _globalStateModel.inputState = InputState.Dialogue;
+            _previousInputState = _globalStateModel.CurrentInputState.Value;
+            _globalStateModel.CurrentInputState.Value = InputState.Dialogue;
             _globalStateModel.InvokeOnDialogueStarted();
         }
 
         private void OnDialogueComplete()
         {
             Debug.Log("[YarnModel] OnDialogueComplete");
-            _globalStateModel.inputState = InputState.Surface;
+            _globalStateModel.CurrentInputState.Value = _previousInputState;
             _globalStateModel.InvokeOnDialogueCompleted();
         }
 
