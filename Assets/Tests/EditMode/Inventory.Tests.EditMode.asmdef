@@ -1,0 +1,10 @@
+{
+  "name": "Inventory.Tests.EditMode",
+  "rootNamespace": "",
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEngine.TestRunner",
+    "Model",
+    "Core"
+  ]
+}

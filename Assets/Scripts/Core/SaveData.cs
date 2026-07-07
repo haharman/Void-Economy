@@ -86,4 +86,13 @@ namespace Core
         public string value;
         public string type; // "Float", "String", "Bool" などの識別用
     }
+    
+    [Serializable]
+    public class ItemInstanceSaveData
+    {
+        public string InstanceId;
+        public string DefinitionId; // ItemDefinition.Idの文字列
+        public int Count;
+        // Memory系拡張データはpolymorphicにシリアライズが必要になるので注意
+    }
 }
