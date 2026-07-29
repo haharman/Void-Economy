@@ -125,6 +125,66 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 5896804419173351648
+  - m_Id: 37224610244050944
+    m_Key: line:d244782d
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293405
+  - m_Id: 37224610269216768
+    m_Key: line:c592ee71
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293406
+  - m_Id: 37224610269216769
+    m_Key: line:7fc3e7e8
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293407
+  - m_Id: 37224610269216770
+    m_Key: line:e9f3e09f
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293408
+  - m_Id: 37224610269216771
+    m_Key: line:4a668401
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293409
+  - m_Id: 37224610269216772
+    m_Key: line:dc568376
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293410
+  - m_Id: 37224610269216773
+    m_Key: line:e0d0a7c3
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293411
+  - m_Id: 37224610269216774
+    m_Key: line:76e0a0b4
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293412
+  - m_Id: 37224610269216775
+    m_Key: line:e7fd1f24
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293413
+  - m_Id: 37224610269216776
+    m_Key: line:71cd1853
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293414
+  - m_Id: 37224610269216777
+    m_Key: line:4e0c531b
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293415
+  - m_Id: 37224610269216778
+    m_Key: line:d83c546c
+    m_Metadata:
+      m_Items:
+      - rid: 6276439145617293416
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -210,6 +270,68 @@ MonoBehaviour:
         nodeName: ThreeJizo
         tags: []
     - rid: 5896804419173351648
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293405
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Sample
+        tags: []
+    - rid: 6276439145617293406
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags:
+        - lastline
+    - rid: 6276439145617293407
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
+    - rid: 6276439145617293408
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags:
+        - lastline
+    - rid: 6276439145617293409
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
+    - rid: 6276439145617293410
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: Circle
+        tags: []
+    - rid: 6276439145617293411
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293412
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293413
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293414
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293415
+      type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
+      data:
+        nodeName: ThreeJizo
+        tags: []
+    - rid: 6276439145617293416
       type: {class: LineMetadata, ns: Yarn.Unity.UnityLocalization, asm: YarnSpinner.Unity}
       data:
         nodeName: ThreeJizo
