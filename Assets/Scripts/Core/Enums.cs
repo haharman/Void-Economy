@@ -11,25 +11,24 @@ namespace Core
     {
         ToTitle,
         Title,
-        ToSurface,
-        Surface,
-        ToSpace,
-        Space
+        ToOrrery,
+        Orrery,
     }
     public enum InputState
     {
         Disable,
-        Surface,
-        Space,
+        Player,
         Dialogue,
         UI
     }
     
-    public enum Surface
+    public enum CoordSystemId
     {
-        Space = -1,
-        Mine = 0,
-        Fog = 1,
+        Global = 0,
+        Soul = 1,
+        Mine = 2,
+        Red = 3,
+        Fog = 4
     }
     
     public enum EntityType
@@ -62,5 +61,4 @@ namespace Core
     {
         
     }
-
 }

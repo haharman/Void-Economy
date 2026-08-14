@@ -4,8 +4,7 @@ namespace Core
     {
         None,
         Title,
-        Surface,
-        Space
+        Orrery
     }
     
     public static class SceneCore
@@ -15,8 +14,7 @@ namespace Core
             return sceneType switch
             {
                 SceneType.Title  => "TitleScene",
-                SceneType.Space  => "SpaceScene",
-                SceneType.Surface => "SurfaceScene",
+                SceneType.Orrery => "OrreryScene",
                 _ => throw new System.ArgumentOutOfRangeException(nameof(sceneType), $"未定義のシーンです: {sceneType}")
             };
         }
@@ -26,8 +24,7 @@ namespace Core
             return sceneName switch
             {
                 "TitleScene" => SceneType.Title,
-                "SpaceScene" => SceneType.Space,
-                "SurfaceScene" => SceneType.Surface,
+                "OrreryScene" => SceneType.Orrery,
                 _ => throw new System.ArgumentOutOfRangeException(nameof(sceneName), $"未定義のシーン名です: {sceneName}")
             };
         }

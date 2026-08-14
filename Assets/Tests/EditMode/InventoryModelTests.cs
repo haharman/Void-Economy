@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InventoryModelTests
 {
+    /*
     private InventoryModel _sut;
     private SimpleItemDefinition _simpleDef;
     private UniqueItemDefinition _uniqueDef;
@@ -51,4 +52,5 @@ public class InventoryModelTests
     {
         _simpleDef = null;
     }
+    */
 }

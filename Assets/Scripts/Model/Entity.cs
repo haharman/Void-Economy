@@ -6,7 +6,7 @@ namespace Model
 {
     public class Entity
     {
-        private YarnModel _yarnModel;
+        private IDialogueRunner _dialogueRunner;
         
         public EntityType EntityType { get; set; }
         public ReactiveProperty<Vector2> Position { get; }
@@ -15,9 +15,9 @@ namespace Model
         public string DialogueNodeName { get; set; }
         public Vector2 InteractionGuidePosition { get; } // 頭上の「E: 話しかける」ナビゲーション(Interaction Prompt)の位置
 
-        public Entity(EntityConfig config, YarnModel yarnModel)
+        public Entity(EntityConfig config, IDialogueRunner dialogueRunner)
         {
-            _yarnModel = yarnModel;
+            _dialogueRunner = dialogueRunner;
             Position = new ReactiveProperty<Vector2>(config.Position);
             XGrid = Utils.CalculateXGrid(Position.Value.x);
             IsInteractable = config.IsInteractable;
@@ -29,7 +29,7 @@ namespace Model
         {
             if (!IsInteractable) return;
             Debug.Log($"[Entity] Interacted: {DialogueNodeName}");
-            _yarnModel.StartDialogue(DialogueNodeName);
+            _dialogueRunner.StartDialogue(DialogueNodeName);
         }
     }
 }

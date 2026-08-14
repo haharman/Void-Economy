@@ -21,11 +21,13 @@ MonoBehaviour:
       savedAtUnixMs: 0
       screenshotFileName: 
       version: 
-      sceneName: SurfaceScene
+      sceneName: OrreryScene
     global:
       sceneType: 0
+    orrery:
+      orreryCumulativeSeconds: 1000
     player:
-      isSurface: 0
+      coordSystem: 2
       position: {x: 0, y: 0}
       forward: {x: 0, y: 0}
       velocity: {x: 0, y: 0}

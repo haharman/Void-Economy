@@ -1,9 +1,10 @@
 using System;
 using Core;
+using R3;
 
 namespace Presenter
 {
-    public interface ISceneService
+    public interface ISceneLoader
     {
         public void LoadScene(SceneType sceneType);
     }

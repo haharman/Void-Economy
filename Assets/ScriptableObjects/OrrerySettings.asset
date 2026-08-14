@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b554f6daf54134a83e672b68650882, type: 3}
+  m_Name: OrrerySettings
+  m_EditorClassIdentifier: Model::Model.OrrerySettingsSo
+  Planets:
+  - Id: 0
+    Model:
+      _name: The Sun
+      _radius: 150
+      _gravity: 0
+      _parallaxHeight: 0
+      _orbitalRadius: 0
+      _orbitalPeriodSeconds: Infinity
+  - Id: 1
+    Model:
+      _name: Soul
+      _radius: 23.5
+      _gravity: 10
+      _parallaxHeight: 0
+      _orbitalRadius: 423
+      _orbitalPeriodSeconds: 100
+  - Id: 2
+    Model:
+      _name: Mine
+      _radius: 50
+      _gravity: 20
+      _parallaxHeight: 10.51
+      _orbitalRadius: 725
+      _orbitalPeriodSeconds: 200
+  - Id: 3
+    Model:
+      _name: Red
+      _radius: 72.5
+      _gravity: 30
+      _parallaxHeight: 0
+      _orbitalRadius: 1700
+      _orbitalPeriodSeconds: 170
+  - Id: 4
+    Model:
+      _name: Fog
+      _radius: 135
+      _gravity: 35
+      _parallaxHeight: 0
+      _orbitalRadius: 2658
+      _orbitalPeriodSeconds: 1000
