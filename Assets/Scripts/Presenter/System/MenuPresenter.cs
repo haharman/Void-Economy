@@ -15,7 +15,7 @@ namespace Presenter
         private readonly ISceneState _sceneState;
         private readonly ISaveDataService _saveDataService;
         private readonly IQuitService _quitService;
-        private readonly IInputService _inputService;
+        private readonly IInputSource _inputSource;
         private enum PanelType
         {
             Home = 0,
@@ -32,7 +32,7 @@ namespace Presenter
             ISceneState sceneState,
             ISaveDataService saveDataService,
             IQuitService quitService,
-            IInputService inputService,
+            IInputSource inputSource,
             MenuView view,
             CancellationToken cancellationToken)
         {
@@ -40,18 +40,18 @@ namespace Presenter
             _sceneState = sceneState;
             _saveDataService = saveDataService;
             _quitService = quitService;
-            _inputService = inputService;
+            _inputSource = inputSource;
             _view = view;
 
             _sceneState.CurrentSceneState
                 .Subscribe(state =>
                 {
-                    if (state == SceneState.Title)
+                    if (state == SceneId.Title)
                     {
                         _view.OnEnterTitle();
                         _currentPanel = PanelType.Home;
                     }
-                    else if (state == SceneState.Orrery)
+                    else if (state == SceneId.Orrery)
                         _view.OnExitTitle();
                 })
                 .RegisterTo(cancellationToken);
@@ -64,9 +64,9 @@ namespace Presenter
             _view.OnNewGameSlotPressed += HandleNewGameSlotPressed;
             _view.OnMenuPanelChanged += HandleMenuPanelChanged;
 
-            //_inputService.OnUISubmitPressed += view.HandleSubmitPressed;
-            _inputService.OnUICancelPressed += HandleUICancelPressed;
-            _inputService.OnPlayerCancelPressed += HandlePlayerCancelPressed;
+            //_inputSource.OnUISubmitPressed += view.HandleSubmitPressed;
+            _inputSource.OnUICancelPressed += HandleUICancelPressed;
+            _inputSource.OnPlayerCancelPressed += HandlePlayerCancelPressed;
         }
 
         private void HandleLoadSlotPressed(int slotIndex)
@@ -77,7 +77,7 @@ namespace Presenter
             if (slotIndex < slots.Count)
             {
                 _saveDataService.Load(slots[slotIndex].id, false);
-                _sceneService.LoadScene(SceneType.Orrery);
+                _sceneService.LoadScene(SceneId.Orrery);
             }
             else
             {
@@ -89,10 +89,10 @@ namespace Presenter
         private void HandleNewGameSlotPressed()
         {
             Debug.Log("newGameSlotが選択されました");
-            _sceneService.LoadScene(SceneType.Orrery);
+            _sceneService.LoadScene(SceneId.Orrery);
             _view.ExitLoad();
             _view.OnMenuClose();
-            _inputService.CurrentInputState.Value = InputState.Player;
+            _inputSource.CurrentInputState.Value = InputState.Player;
         }
 
         private void HandleSaveStarted()
@@ -106,7 +106,7 @@ namespace Presenter
         {
             _view.ExitQuit();
             _currentPanel = PanelType.Home;
-            _sceneService.LoadScene(SceneType.Title);
+            _sceneService.LoadScene(SceneId.Title);
         }
 
         private void HandleQuitToDesktop()
@@ -131,8 +131,8 @@ namespace Presenter
             Debug.Log("[MenuPresenter] Open Menu");
             _view.OnMenuOpen();
             _currentPanel = PanelType.Home;
-            _previousInputState = _inputService.CurrentInputState.Value;
-            _inputService.CurrentInputState.Value = InputState.UI;
+            _previousInputState = _inputSource.CurrentInputState.Value;
+            _inputSource.CurrentInputState.Value = InputState.UI;
         }
         
         private void HandleUICancelPressed()
@@ -142,7 +142,7 @@ namespace Presenter
             {
                 case PanelType.Home:
                     _view.OnMenuClose();
-                    _inputService.CurrentInputState.Value = _previousInputState;
+                    _inputSource.CurrentInputState.Value = _previousInputState;
                     break;
                 case PanelType.Load:
                     _view.ExitLoad();

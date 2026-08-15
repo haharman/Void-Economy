@@ -6,6 +6,6 @@ namespace Presenter
 {
     public interface ISceneLoader
     {
-        public void LoadScene(SceneType sceneType);
+        public void LoadScene(SceneId sceneType);
     }
 }

@@ -44,7 +44,7 @@ public class SystemRoot : MonoBehaviour, IQuitService
     private void InitializeApp()
     {
         // タイトルシーンかチェック
-        var titleScene = SceneCore.GetSceneName(SceneType.Title);
+        var titleScene = SceneCore.GetSceneName(SceneId.Title);
         if(SceneManager.GetActiveScene().name != titleScene)
         {
             Debug.LogError($"[GlobalRoot] Titleシーンをロードするよう設定してください 現在のシーン: {SceneManager.GetActiveScene().name}");
@@ -76,7 +76,7 @@ public class SystemRoot : MonoBehaviour, IQuitService
         
         // Service層 インスタンスの作成
         _saveDataService = new SaveDataService(defaultSaveData.data.DeepCopy());
-        _sceneService = new SceneService(SceneType.Title);
+        _sceneService = new SceneService(SceneId.Title);
         _updateService = new UpdateService();
         _systemUpdateService = new UpdateService();
         _inputService = new InputService(inputView);
@@ -104,14 +104,14 @@ public class SystemRoot : MonoBehaviour, IQuitService
         _updateService.Register(_systemUpdateService);
     }
 
-    private void OnLoadingStarted(SceneType sceneType)
+    private void OnLoadingStarted(SceneId sceneType)
     {
         _updateService.Unregister(_systemUpdateService);
     }
     
-    private void OnLoadingCompleted(SceneType sceneType)
+    private void OnLoadingCompleted(SceneId sceneType)
     {
-        if (sceneType == SceneType.Orrery)
+        if (sceneType == SceneId.Orrery)
         {
             // OrreryRootと接続
             var orreryRoot = FindFirstObjectByType<OrreryRoot>();
@@ -128,7 +128,7 @@ public class SystemRoot : MonoBehaviour, IQuitService
             orreryRoot.Initialize(_systemUpdateService);
             _updateService.Register(_systemUpdateService);
         }
-        else if (sceneType == SceneType.Title)
+        else if (sceneType == SceneId.Title)
         {
             _updateService.Register(_systemUpdateService);
         }

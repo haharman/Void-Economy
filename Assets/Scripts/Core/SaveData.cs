@@ -78,7 +78,7 @@ namespace Core
     [Serializable]
     public struct GlobalStateSaveData
     {
-        public SceneType sceneType;
+        public SceneId sceneType;
     }
 
     [Serializable]

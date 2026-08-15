@@ -9,6 +9,5 @@ namespace Presenter
     {
         public void Register(IUpdatable updateable);
         public void Unregister(IUpdatable updatable);
-        public void ClearUpdatables();
     }
 }

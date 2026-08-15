@@ -40,6 +40,7 @@ namespace Presenter
         public void Initialize()
         {
             Debug.Log("[PlanetPresenter] Initialize()");
+            _view.SetTextureScale(_planetModel.Radius * 2);
             if(_jetpackSource.CoordPos.CurrentValue.CoordSystem == _id)
                 LoadSurface();
             else

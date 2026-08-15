@@ -11,22 +11,22 @@ namespace Service
     public class SceneService : ISceneState, ISceneLoader
     {
         // public SceneType CurrentSceneType { get; }
-        public ReactiveProperty<SceneState> CurrentSceneState { get; }
-        public event Action<SceneType> LoadingStarted;
-        public event Action<SceneType> LoadingCompleted;
+        public ReactiveProperty<SceneId> CurrentSceneState { get; }
+        public event Action<SceneId> LoadingStarted;
+        public event Action<SceneId> LoadingCompleted;
         private bool _isLoading = false;
         
         public string ActiveSceneName => SceneManager.GetActiveScene().name;
 
-        public SceneService(SceneType sceneType)
+        public SceneService(SceneId sceneType)
         {
-            CurrentSceneState = new ReactiveProperty<SceneState>();
+            CurrentSceneState = new ReactiveProperty<SceneId>();
             // CurrentSceneType = sceneType;
         }
         /// <summary>
         /// 非同期でシーンをロードします。
         /// </summary>
-        public void LoadScene(SceneType sceneType)
+        public void LoadScene(SceneId sceneType)
         {
             string sceneName = SceneCore.GetSceneName(sceneType);
             if (_isLoading)

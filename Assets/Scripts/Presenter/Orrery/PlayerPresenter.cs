@@ -22,23 +22,23 @@ namespace Presenter
         private AudioPresenter _audioPresenter;
         
         // Service
-        private IInputService _inputService;
+        private IInputSource _inputSource;
 
         public event Action OnEnterSpace;
         
         private CoordSystemId? _previousCoordSystem = null;
         private Vector2 _previousForward = Vector2.zero;
 
-        public PlayerPresenter(JetpackModel jetpackModel, PlayerView playerView, IInputService inputService,
+        public PlayerPresenter(JetpackModel jetpackModel, PlayerView playerView, IInputSource inputSource,
             AudioPresenter audioPresenter, CancellationToken cancellationToken, IReadOnlyDictionary<CoordSystemId, Transform> coordSystemTransformDictionary)
         {
             _model = jetpackModel;
             _view = playerView;
-            _inputService = inputService;
-            _inputService.CurrentMoveInput
+            _inputSource = inputSource;
+            _inputSource.CurrentMoveInput
                 .Subscribe(vector2 => _model.MoveInput = vector2)
                 .RegisterTo(cancellationToken);
-            _inputService.OnPlayerSubmitPressed += HandleSubmitPressed;
+            _inputSource.OnPlayerSubmitPressed += HandleSubmitPressed;
             _audioPresenter = audioPresenter;
             _model.CoordPos
                 .Subscribe(coordPos => HandleUpdateCoordPos(coordPos))
@@ -96,7 +96,7 @@ namespace Presenter
         // 未配線
         public void Dispose()
         {
-            _inputService.OnPlayerSubmitPressed -= HandleSubmitPressed;
+            _inputSource.OnPlayerSubmitPressed -= HandleSubmitPressed;
         }
         
     }

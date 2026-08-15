@@ -7,13 +7,6 @@ namespace Core
         Switch
     }
 
-    public enum SceneState
-    {
-        ToTitle,
-        Title,
-        ToOrrery,
-        Orrery,
-    }
     public enum InputState
     {
         Disable,
@@ -45,6 +38,13 @@ namespace Core
         FogTrain,
         StoryAboutU,
         SolarSystem
+    }
+    
+    public enum SceneId
+    {
+        None,
+        Title,
+        Orrery
     }
 
     public enum LoopId

@@ -32,7 +32,7 @@ namespace Model
         // NOTE: 旧実装は速度・加速度に deltaTime を余分に掛けていたため、
         //       60fps 相当の実効値へ換算してある（旧 WalkingVelocity=700, ThrustAcceleration=15）。
         //       フレームレート非依存になった代わりに体感が変わる可能性があるので要再調整。
-        private const float WalkingSpeed = 11.7f;        // units / sec
+        private const float WalkingSpeed = 50.7f;        // units / sec
         private const float ThrustAcceleration = 40f; // units / sec^2
 
         public const float AirDrag = 0.1f;
@@ -48,7 +48,7 @@ namespace Model
 
         private float KarmanRadius => KarmanAltitude + ClosestPlanet.Radius - 1f;
 
-        private float KarmanAltitude => ClosestPlanet.Radius * 2f;
+        private float KarmanAltitude => ClosestPlanet.Radius * 1.5f;
         private float SpaceLoadAltitude => ClosestPlanet.Radius * 1f;
         private float SurfaceUnloadAltitude => KarmanAltitude; // 保留。プレイヤーも消えちゃうので高度を最大値に変更中。
         private float SurfaceLoadAltitude => KarmanAltitude;//ClosestPlanet.Radius * 1f;

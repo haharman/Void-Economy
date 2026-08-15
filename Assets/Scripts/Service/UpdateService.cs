@@ -40,6 +40,7 @@ namespace Service
             if (_updatables.Contains(updatable)) _toRemove.Add(updatable);
         }
         
+        // 削除を検討中（インターフェースからはいったん削除している）
         public void ClearUpdatables()
         {
             foreach (var updatable in _updatables)

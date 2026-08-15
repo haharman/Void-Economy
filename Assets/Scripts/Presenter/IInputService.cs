@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Presenter
 {
-    public interface IInputService
+    public interface IInputSource
     {
         ReactiveProperty<InputState> CurrentInputState { get; set; }
         ReactiveProperty<Vector2> CurrentMoveInput { get; }

@@ -11,7 +11,7 @@ namespace Service
     /// 入力View(PlayerInputView)からのイベントを受け取り、
     /// Modelの更新や他のPresenter/Viewへの命令を行う仲介役(Presenter)。
     /// </summary>
-    public class InputService : IDisposable, IInputService, IUpdatable
+    public class InputService : IDisposable, IInputSource, IUpdatable
     {
         // IInputService
         public ReactiveProperty<InputState> CurrentInputState { get; set; }

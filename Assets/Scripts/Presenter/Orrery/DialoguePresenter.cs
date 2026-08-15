@@ -11,13 +11,13 @@ namespace Presenter
     {
         private DialogueRunner _dialogueRunner;
         private InMemoryVariableStorage _inMemoryVariableStorage;
-        private IInputService _inputService;
+        private IInputSource _inputSource;
         
         // ダイアログ開始前の_globalStateModel.CurrentInputState.Valueを保持する
         private InputState _previousInputState;
         
         
-        public DialoguePresenter(DialogueRunner dialogueRunner, InMemoryVariableStorage inMemoryVariableStorage, IInputService inputService)
+        public DialoguePresenter(DialogueRunner dialogueRunner, InMemoryVariableStorage inMemoryVariableStorage, IInputSource inputSource)
         {
             _dialogueRunner = dialogueRunner;
             _inMemoryVariableStorage = inMemoryVariableStorage;
@@ -45,14 +45,14 @@ namespace Presenter
         private void OnDialogueStart()
         {
             Debug.Log("[YarnModel] OnDialogueStart");
-            _previousInputState = _inputService.CurrentInputState.Value;
-            _inputService.CurrentInputState.Value = InputState.Dialogue;
+            _previousInputState = _inputSource.CurrentInputState.Value;
+            _inputSource.CurrentInputState.Value = InputState.Dialogue;
         }
 
         private void OnDialogueComplete()
         {
             Debug.Log("[YarnModel] OnDialogueComplete");
-            _inputService.CurrentInputState.Value = _previousInputState;
+            _inputSource.CurrentInputState.Value = _previousInputState;
         }
 
         #region セーブとロード
