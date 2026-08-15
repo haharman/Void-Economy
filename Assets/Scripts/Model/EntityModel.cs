@@ -5,12 +5,12 @@ namespace Model
 {
     public class EntityModel
     {
-        private YarnModel _yarnModel;
         private List<Entity> _entities;
+        private IDialogueRunner _dialogueRunner;
         
-        public EntityModel(YarnModel yarnModel)
+        public EntityModel(IDialogueRunner dialogueRunner)
         {
-            _yarnModel = yarnModel;
+            _dialogueRunner = dialogueRunner;
         }
         
         public List<Entity> Init(List<EntityConfig> entityConfigs)
@@ -18,7 +18,7 @@ namespace Model
             _entities = new List<Entity>();
             foreach (var config in entityConfigs)
             {
-                _entities.Add(new Entity(config, _yarnModel));
+                _entities.Add(new Entity(config, _dialogueRunner));
             }
 
             Debug.Log("[EntityModel] Init with: " + _entities.Count + "entities");

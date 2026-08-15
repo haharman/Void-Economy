@@ -5,10 +5,9 @@ namespace Presenter
         void OnUpdate(float deltaTime);
     }
 
-    public interface IUpdatableService
+    public interface IUpdateService
     {
         public void Register(IUpdatable updateable);
         public void Unregister(IUpdatable updatable);
-        public void ClearUpdatables();
     }
 }

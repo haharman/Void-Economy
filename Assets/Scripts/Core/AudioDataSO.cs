@@ -6,7 +6,7 @@ namespace Core
     using System.Collections.Generic;
     using UnityEngine;
     
-    [CreateAssetMenu(fileName = "AudioData", menuName = "ScriptableObjects/AudioData")]
+    [CreateAssetMenu(menuName = "AudioData", fileName = "NewAudioData")]
     public class AudioDataSO : ScriptableObject {
         [Serializable]
         public struct MusicConfig {

@@ -9,12 +9,12 @@ namespace Core
     /// </summary>
     public readonly struct SurfacePosition : IEquatable<SurfacePosition>
     {
-        public Surface surface { get; }
+        public CoordSystemId surface { get; }
         public float x { get; }
         public float y { get; }
         public int layerIndex { get; }
 
-        public SurfacePosition(Surface surface, float x, float y, int layerIndex)
+        public SurfacePosition(CoordSystemId surface, float x, float y, int layerIndex)
         {
             this.surface = surface;
             this.x = x;

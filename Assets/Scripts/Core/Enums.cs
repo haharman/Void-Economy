@@ -1,28 +1,27 @@
 namespace Core
 {
-    public enum SceneState
+    public enum SystemType
     {
-        ToTitle,
-        Title,
-        ToSurface,
-        Surface,
-        ToSpace,
-        Space
+        PC,
+        Mobile,
+        Switch
     }
+
     public enum InputState
     {
         Disable,
-        Surface,
-        Space,
+        Player,
         Dialogue,
         UI
     }
     
-    public enum Surface
+    public enum CoordSystemId
     {
-        Space = -1,
-        Mine = 0,
-        Fog = 1,
+        Global = 0,
+        Soul = 1,
+        Mine = 2,
+        Red = 3,
+        Fog = 4
     }
     
     public enum EntityType
@@ -40,6 +39,13 @@ namespace Core
         StoryAboutU,
         SolarSystem
     }
+    
+    public enum SceneId
+    {
+        None,
+        Title,
+        Orrery
+    }
 
     public enum LoopId
     {
@@ -55,5 +61,4 @@ namespace Core
     {
         
     }
-
 }
