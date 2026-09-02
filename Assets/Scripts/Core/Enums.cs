@@ -14,7 +14,7 @@ namespace Core
         Dialogue,
         UI
     }
-    // heresss
+
     public enum CoordSystemId
     {
         Global = 0,
