@@ -17,12 +17,13 @@ namespace Service
         private IUpdateService _orreryUpdateService;
         private UpdateService _planetUpdateService;
         private ISaveDataService _saveDataService;
+        private ICameraSource _cameraSource;
 
         // Model
         private EntityModel _entityModel;
         
         // View
-        [SerializeField] private ParallaxView parallaxView;
+        [SerializeField] private ParallaxLoopView parallaxView;
         [SerializeField] private CoordView coordView;
         [SerializeField] private PlanetView planetView;
         // Presenter
@@ -32,12 +33,13 @@ namespace Service
         private readonly CancellationTokenSource _cts = new();
         
         public void Bootstrap(CoordSystemId planetId, IPlanetModel planetModel,
-            IJetpackSource jetpackSource, ISaveDataService saveDataService)
+            IJetpackSource jetpackSource, ISaveDataService saveDataService, ICameraSource cameraSource)
         {
             PlanetId = planetId;
+            _cameraSource = cameraSource;
             var ct = _cts.Token;
             Debug.Log("[SurfaceRoot] Init");
-            _parallaxPresenter = new ParallaxPresenter(parallaxView, jetpackSource);
+            _parallaxPresenter = new ParallaxPresenter(parallaxView, _cameraSource, planetId);
             _planetPresenter = new PlanetPresenter(planetId, planetView, coordView, jetpackSource, 
                 planetModel, ct);
             _planetUpdateService = new UpdateService();
@@ -52,6 +54,7 @@ namespace Service
             
             _orreryUpdateService = orreryUpdateService;
             _planetUpdateService.Register(_planetPresenter);
+            _planetUpdateService.Register(_parallaxPresenter);
             _orreryUpdateService.Register(_planetUpdateService);
         }
         
@@ -61,6 +64,7 @@ namespace Service
             
             _orreryUpdateService.Unregister(_planetUpdateService);
             _planetUpdateService.Unregister(_planetPresenter);
+            _planetUpdateService.Unregister(_parallaxPresenter);
         }
 
         #region 自動アタッチ
@@ -69,7 +73,7 @@ namespace Service
         {
             if (parallaxView == null)
             {
-                parallaxView = GetComponentInChildren<ParallaxView>(true);
+                parallaxView = GetComponentInChildren<ParallaxLoopView>(true);
                 if (parallaxView == null)
                     Debug.LogWarning($"{name}: ParallaxView が子階層に見つかりません", this);
             }

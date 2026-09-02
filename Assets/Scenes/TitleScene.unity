@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.85
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.85
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2832,7 +2832,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.8
+  m_fontSize: 18.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3619,7 +3619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda67628d2c248498ffbe1417fc5f3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Root::Root.TitleRoot
-  view: {fileID: 1507007324}
 --- !u!4 &727781463
 Transform:
   m_ObjectHideFlags: 0
@@ -5153,7 +5152,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.85
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5900,7 +5899,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1507007323}
-  - component: {fileID: 1507007324}
   m_Layer: 0
   m_Name: Title View
   m_TagString: Untagged
@@ -5924,18 +5922,6 @@ Transform:
   - {fileID: 494910884}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1507007324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507007322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3e26b7977747a392508ccd716a4793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: View::View.TitleView
 --- !u!1 &1511747571
 GameObject:
   m_ObjectHideFlags: 0
@@ -8283,7 +8269,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.85
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

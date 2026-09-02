@@ -14,7 +14,6 @@ namespace View
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private float animationSpeed = 0.65f;
-        [SerializeField] private CameraController cameraController;
         
         private CoordSystemId _currentCoodinateSystem;
         private const float WalkingVelocityThreshold = 0.1f;
