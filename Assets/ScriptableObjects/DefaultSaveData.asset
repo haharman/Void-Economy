@@ -27,8 +27,8 @@ MonoBehaviour:
     orrery:
       orreryCumulativeSeconds: 1000
     player:
-      coordSystem: 2
+      coordSystem: 1
       position: {x: 0, y: 0}
-      forward: {x: 0, y: 0}
       velocity: {x: 0, y: 0}
+      forward: {x: 0, y: 0}
     yarn: []

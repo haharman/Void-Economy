@@ -14,7 +14,7 @@ namespace Core
         Dialogue,
         UI
     }
-    
+
     public enum CoordSystemId
     {
         Global = 0,

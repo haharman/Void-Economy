@@ -16,7 +16,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "R3.dll",
-        "YarnSpinner.dll"
+        "YarnSpinner.dll",
+        "DOTween.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

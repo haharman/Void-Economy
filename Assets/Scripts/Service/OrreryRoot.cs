@@ -27,10 +27,13 @@ public class OrreryRoot : MonoBehaviour
     // View
     [SerializeField] private YarnView yarnView;
     [SerializeField] private PlayerView playerView;
+    [SerializeField] private Camera camera;
     [SerializeField] private InteractionGuideView interactionGuideView;
+    [SerializeField] private CinemachineView cinemachineView;
     
     // Presenter
     private AudioPresenter _audioPresenter;
+    private CameraPresenter _cameraPresenter;
     private PlayerPresenter _playerPresenter;
     private OrreryPresenter _orreryPresenter;
     private DialoguePresenter _dialoguePresenter;
@@ -89,6 +92,7 @@ public class OrreryRoot : MonoBehaviour
         }
         _playerPresenter = new PlayerPresenter(_jetpackModel, playerView, inputService,
             _audioPresenter, this.destroyCancellationToken, coordSystemTransformDictionary);
+        _cameraPresenter = new CameraPresenter(camera, coordSystemTransformDictionary, _jetpackModel, cinemachineView, this.destroyCancellationToken);
         
         _orreryPresenter = new OrreryPresenter(_orreryModel);
         
@@ -105,7 +109,7 @@ public class OrreryRoot : MonoBehaviour
                 continue;
             }
             planetRoot.Bootstrap(id, _orreryModel.GetPlanetModel(id),
-                _jetpackModel, saveDataService);
+                _jetpackModel, saveDataService, _cameraPresenter);
         }
     }
 
@@ -118,6 +122,7 @@ public class OrreryRoot : MonoBehaviour
         _orreryUpdateService.Register(_playerPresenter);
         _orreryUpdateService.Register(_orreryPresenter);
         _orreryUpdateService.Register(_audioPresenter);
+        _orreryUpdateService.Register(_cameraPresenter);
         
         foreach (var (id, planetRoot) in _planetRootDictionary)
         {
