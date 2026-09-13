@@ -9,11 +9,11 @@ namespace Presenter
     {
         private CoordSystemId _coord;
         
-        private ParallaxLoopView _view;
+        private ParallaxView _view;
         private IJetpackSource _jetpackSource;
         private ICameraSource _cameraSource;
 
-        public ParallaxPresenter(ParallaxLoopView parallaxView, ICameraSource cameraSource, CoordSystemId coord)
+        public ParallaxPresenter(ParallaxView parallaxView, ICameraSource cameraSource, CoordSystemId coord)
         {
             _view = parallaxView;
             _cameraSource = cameraSource;
@@ -22,10 +22,11 @@ namespace Presenter
         
         public void OnUpdate(float deltaTime)
         {
-            if(_coord == _cameraSource.Coord)
+            if (_coord == _cameraSource.Coord)
+            {
+                Debug.Log(_coord);
                 _view.UpdateLoopLayers(_cameraSource.Position.x, _cameraSource.Size.x);
-            else
-                Debug.Log("描画されないときはOnUpdate配信を止めよう");
+            }
         }
     }
 }

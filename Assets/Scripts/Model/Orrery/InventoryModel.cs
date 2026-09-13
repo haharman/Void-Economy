@@ -1,35 +1,66 @@
 using System;
 using System.Collections.Generic;
 using Core;
+using UnityEditor;
 
-// 関連ファイル：ItemDefinisionSO.cs
+// 関連ファイル：ItemDefinitionSO.cs
 
 namespace Model
 {
     
+    public enum GetResult
+    {
+        Success,
+        InvalidId,
+        NotFound,
+        InsufficientCount
+    }
+
+    public enum SetResult
+    {
+        Success,
+        InvalidId,
+        FullOfMass,
+        FullOfVolume
+    }
+    public interface IInventorySource
+    {
+        public GetResult TryGet(ItemId id, int count, out ItemStack item);
+        public SetResult TrySet(ItemId id, int count, out ItemStack item);
+        public int GetCount(ItemId id);
+    }
+    
     public interface IInventoryService
     {
-        void Init();
-        void RemoveItem();
+        public void ClearItems();
     }
 
     public class InventoryModel : IInventoryService
     {
-        private List<ItemInstanceId> uniqueItems;
+        
+
+        private Dictionary<ItemId, ItemStack> Items;
+
+        public InventoryModel()
+        {
+            Items = new();
+        }
+        
         public void Init()
         {
             
         }
 
-        public void RemoveItem()
+        public void ClearItems()
         {
-
+            Items.Clear();
         }
+        
+        
     }
     
     public readonly struct TradeOffer
     {
-        public readonly IReadOnlyList<ItemInstanceId> InstanceIds; // ユニーク品
         public readonly IReadOnlyDictionary<string, int> StackableAmounts; // スタック品
     }
 }

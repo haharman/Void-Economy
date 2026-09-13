@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 namespace Model
@@ -50,12 +51,12 @@ namespace Model
         public Sprite requesterIcon;
 
         [Header("要求される品物")]
-        public Item targetItem;
+        public ItemDefinition targetItem;
         public int requiredAmount;
         
         [Header("報酬")]
         public int rewardYen;
-        public Item rewardItem;
+        public ItemDefinition rewardItem;
         public int rewardItemAmount;
     }
 }

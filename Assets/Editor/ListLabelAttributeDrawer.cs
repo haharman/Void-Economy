@@ -4,13 +4,18 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(ListLabelAttribute))]
 public class ListLabelDrawer : PropertyDrawer
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    private GUIContent GetLabel(SerializedProperty property, GUIContent label)
     {
         var attr = (ListLabelAttribute)attribute;
         var nameProp = property.FindPropertyRelative(attr.FieldName);
-        string displayName = (nameProp != null && !string.IsNullOrEmpty(nameProp.stringValue))
-            ? nameProp.stringValue : label.text;
-
-        EditorGUI.PropertyField(position, property, new GUIContent(displayName), true);
+        return (nameProp != null && !string.IsNullOrEmpty(nameProp.stringValue))
+            ? new GUIContent(nameProp.stringValue)
+            : label;
     }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        => EditorGUI.GetPropertyHeight(property, GetLabel(property, label), true);
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        => EditorGUI.PropertyField(position, property, GetLabel(property, label), true);
 }

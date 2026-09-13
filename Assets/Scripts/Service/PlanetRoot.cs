@@ -23,7 +23,7 @@ namespace Service
         private EntityModel _entityModel;
         
         // View
-        [SerializeField] private ParallaxLoopView parallaxView;
+        [SerializeField] private ParallaxView parallaxView;
         [SerializeField] private CoordView coordView;
         [SerializeField] private PlanetView planetView;
         // Presenter
@@ -73,7 +73,7 @@ namespace Service
         {
             if (parallaxView == null)
             {
-                parallaxView = GetComponentInChildren<ParallaxLoopView>(true);
+                parallaxView = GetComponentInChildren<ParallaxView>(true);
                 if (parallaxView == null)
                     Debug.LogWarning($"{name}: ParallaxView が子階層に見つかりません", this);
             }

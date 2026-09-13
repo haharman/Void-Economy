@@ -22,6 +22,9 @@ namespace Model
 
         public Observable<CoordSystemId> UnloadSurfaceRequested => _unloadSurfaceRequested;
         private readonly Subject<CoordSystemId> _unloadSurfaceRequested = new();
+
+        public Observable<Vector2> PlayerWarped => _playerWarped;
+        private readonly Subject<Vector2> _playerWarped = new();
         
         // 定数
         private const float InteractionRange = 2.5f;
@@ -82,6 +85,8 @@ namespace Model
             Vector2 p = _coordPos.Value.Position;
             Vector2 v = _coordPos.Value.Velocity;
             Vector2 f = _coordPos.Value.Forward;
+            bool warped = false;
+            Vector2 delta = Vector2.zero;
 
             Vector2 moveInput = new Vector2( MoveInput.x * f.y + MoveInput.y * f.x, -MoveInput.x * f.x + MoveInput.y * f.y );
 
@@ -134,7 +139,15 @@ namespace Model
 
                 // 一周したら x を [0, 2πR) に折り返す。
                 // ToSurfaceFrame が返す x と同じ値域に保ち、周回ごとに座標がずれていくのを防ぐ。
+                Vector2 prev = p;
                 p.x = Mathf.Repeat(p.x, 2f * Mathf.PI * ClosestPlanet.Radius);
+                if (prev.x != p.x)
+                {
+                    warped = true;
+                    var worldP = _orreryModel.ToGlobalCoord(coord, p, Vector2.zero, Vector2.zero).Position;
+                    var worldPrev = _orreryModel.ToGlobalCoord(coord, prev, Vector2.zero, Vector2.zero).Position;
+                    delta = worldP - worldPrev;
+                }
             }
 
             // ---------------- 座標系の遷移判定 ----------------
@@ -186,19 +199,19 @@ namespace Model
                 {
                     _coordPos.Value = new CoordPos(coord, p, v, f);
                     _previousPosition = p;
+                    if(warped) { _playerWarped.OnNext((delta));
+                        Debug.Log($"該当部{delta}");}
                 }
             }
 
             // ---------------- コミット ----------------
-
+            
             // Grid 判定
             XGrid = Utils.CalculateXGrid(p.x);
             YGrid = Utils.CalculateYGrid(p.y);
 
             // CurrentTarget 判定
             CurrentTarget = _entityModel.GetInteractableEntity(XGrid, p, InteractionRange);
-
-            Debug.Log(_coordPos.Value.CoordSystem);
         }
 
         public void Interact()
