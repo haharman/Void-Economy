@@ -18,27 +18,36 @@ namespace Model
 
     public enum SetResult
     {
-        Success,
-        InvalidId,
+        Success, // 成功。すべてのアイテムを収納した
+        InvalidId, // 失敗。無効なID
         FullOfMass,
-        FullOfVolume
+        FullOfVolume,
+        InsufficientMass,
+        InsufficientVolume,
+    }
+
+    public enum SortType
+    {
+        Name,
+        Count,
+        TotalMass,
+        TotalVolume,
+        MassPerVolume,
     }
     public interface IInventorySource
     {
         public GetResult TryGet(ItemId id, int count, out ItemStack item);
-        public SetResult TrySet(ItemId id, int count, out ItemStack item);
+        public bool TrySet(ItemId id, int count, out SetResult set);
         public int GetCount(ItemId id);
+        public List<ItemStack> ItemList(SortType sortType, bool ascending);
     }
     
-    public interface IInventoryService
-    {
+    public interface IInventoryService {
         public void ClearItems();
     }
 
-    public class InventoryModel : IInventoryService
+    public class InventoryModel : IInventoryService, IInventorySource
     {
-        
-
         private Dictionary<ItemId, ItemStack> Items;
 
         public InventoryModel()
