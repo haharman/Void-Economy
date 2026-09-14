@@ -43,9 +43,9 @@ namespace Service
         // 削除を検討中（インターフェースからはいったん削除している）
         public void ClearUpdatables()
         {
+            _toAdd.Clear();
             foreach (var updatable in _updatables)
             {
-                _toAdd.Clear();
                 _toRemove.Add(updatable);
             }
         }

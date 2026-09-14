@@ -199,8 +199,7 @@ namespace Model
                 {
                     _coordPos.Value = new CoordPos(coord, p, v, f);
                     _previousPosition = p;
-                    if(warped) { _playerWarped.OnNext((delta));
-                        Debug.Log($"該当部{delta}");}
+                    if (warped) _playerWarped.OnNext(delta);
                 }
             }
 

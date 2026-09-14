@@ -15,7 +15,6 @@ namespace View
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private float animationSpeed = 0.65f;
         
-        private CoordSystemId _currentCoodinateSystem;
         private const float WalkingVelocityThreshold = 0.1f;
         private static readonly int WalkingHash = Animator.StringToHash("Walking");
         private IReadOnlyDictionary<CoordSystemId, Transform> _planetTransformDictionary;

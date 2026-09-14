@@ -1,6 +1,4 @@
-using System;
 using Core;
-using R3;
 
 namespace Presenter
 {

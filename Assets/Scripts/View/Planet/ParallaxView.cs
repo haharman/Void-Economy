@@ -105,8 +105,7 @@ namespace View
         }
 
         public Camera Camera;
-        
-        private float _planetCircumference;
+
         public void Initialize(Camera camera)
         {
             Camera = camera;

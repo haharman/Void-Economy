@@ -9,7 +9,6 @@ namespace View
         [SerializeField] private string dialogueNodeName;
         [SerializeField] private Transform entityTransform;
         [SerializeField] private float interactionGuideOffsetY;
-        //[SerializeField] private Sprite portraitSprite;
 
         public EntityConfig GetConfig()
         {

@@ -45,7 +45,8 @@ namespace View // 名前空間は大文字から始めるのがC#の一般的な
             return  musicSource.isPlaying;
         }
 
-        public MusicId PlayMusic(MusicId currentId, float fadeDuration = 1f) 
+        // TODO: fadeDuration は未実装。現状は常に即時切り替え（フェードなし）
+        public MusicId PlayMusic(MusicId currentId, float fadeDuration = 1f)
         {
             var nextId = GetNextMusicId(currentId);
             var nextMusicClip = _audioData.GetMusicClip(nextId);

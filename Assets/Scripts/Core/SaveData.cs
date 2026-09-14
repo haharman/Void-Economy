@@ -12,7 +12,7 @@ namespace Core
         public SaveDataInfo info;
         public GlobalStateSaveData global;
         public OrrerySaveData orrery;
-        //public EconomySaveData economy;
+        public EconomySaveData economy;
         //public InventorySaveData inventory;
         public PlayerSaveData player;
         public List<YarnVariable> yarn;
@@ -22,7 +22,7 @@ namespace Core
             info = new SaveDataInfo();
             global = new GlobalStateSaveData();
             orrery = new OrrerySaveData();
-            //economy = new EconomySaveData();
+            economy = new EconomySaveData();
             //inventory = new InventorySaveData();
             player = new PlayerSaveData();
             yarn = new List<YarnVariable>();
@@ -66,7 +66,7 @@ namespace Core
     [Serializable]
     public struct EconomySaveData
     {
-        
+        public int balance;
     }
 
     [Serializable]
@@ -98,9 +98,9 @@ namespace Core
     [Serializable]
     public class ItemInstanceSaveData
     {
-        public string InstanceId;
-        public string DefinitionId; // ItemDefinition.Idの文字列
-        public int Count;
+        public string instanceId;
+        public string definitionId; // ItemDefinition.Idの文字列
+        public int count;
         // Memory系拡張データはpolymorphicにシリアライズが必要になるので注意
     }
 }

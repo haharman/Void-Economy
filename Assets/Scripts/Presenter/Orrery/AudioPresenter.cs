@@ -69,7 +69,6 @@ namespace Presenter
                 return;
             }
 
-            //Debug.Log("[AudioPresenter] OnUpdate]");
             var currentMusicDuration = Time.time - _lastMusicStartTime;
             // 再生が自然に終了したとき
             if (!_isMusicSourcePlaying && _wasMusicSourcePlaying)
@@ -77,7 +76,6 @@ namespace Presenter
                 if (Time.time - _lastMusicStartTime < _playbackDurationThreshold)
                 {
                     // AudioDataSOがトラックリストを保持しているため、次の曲の指定を委譲する
-                    //_musicId = (MusicId)(((int)_musicId + 1) % Enum.GetValues(typeof(MusicId)).Length);
                     _musicId = _view.PlayMusic(_musicId);
                     _lastMusicStartTime = Time.time;
                 }

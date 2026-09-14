@@ -1,14 +1,9 @@
-using System;
 using UnityEngine;
-using Model;
-
-using Model.Economy;
 using Presenter;
 using View;
 using Core;
 using Service;
 using UnityEngine.SceneManagement;
-using Yarn.Unity;
 
 public class SystemRoot : MonoBehaviour, IQuitService
 {
