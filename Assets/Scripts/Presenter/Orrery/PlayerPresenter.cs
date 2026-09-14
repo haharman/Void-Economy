@@ -11,7 +11,6 @@ namespace Presenter
 {
     public class PlayerPresenter : IUpdatable, ISaveDataReader, ISaveDataWriter
     {
-        private const float ThresholdY = 20f;
         // Model
         private JetpackModel _model;
 

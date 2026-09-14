@@ -31,7 +31,7 @@ namespace Model
         VolumePerMass,
     }
 
-    public class InventoryModel : IInventoryService, IInventorySource
+    public class InventoryModel : IInventorySource
     {
         private Dictionary<ItemId, ItemStack> Items;
         private float _massLimit = 100f;

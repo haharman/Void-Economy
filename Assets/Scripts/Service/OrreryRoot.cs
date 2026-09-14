@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Model;
-using Model.Economy;
 using Presenter;
 using View;
 using Core;
@@ -18,24 +17,26 @@ public class OrreryRoot : MonoBehaviour
     
     // Model
     private QuestModel _questModel;
-    private EconomyEngine _economyEngine;
     private EntityModel _entityModel;
     private JetpackModel _jetpackModel;
     private InventoryModel _inventoryModel;
     private OrreryModel _orreryModel;
-    
+    private WalletModel _walletModel;
+
     // View
     [SerializeField] private YarnView yarnView;
     [SerializeField] private PlayerView playerView;
+    [SerializeField] private WalletView walletView;
     [SerializeField] private Camera camera;
     [SerializeField] private InteractionGuideView interactionGuideView;
     [SerializeField] private CinemachineView cinemachineView;
-    
+
     // Presenter
     private AudioPresenter _audioPresenter;
     private CameraPresenter _cameraPresenter;
     private PlayerPresenter _playerPresenter;
     private OrreryPresenter _orreryPresenter;
+    private WalletPresenter _walletPresenter;
     private DialoguePresenter _dialoguePresenter;
     
     // Scriptable Objects
@@ -71,13 +72,13 @@ public class OrreryRoot : MonoBehaviour
         _planetRootDictionary = planetRootDictionary;
         
         // Model
-        _economyEngine = new EconomyEngine();
         _dialoguePresenter = new DialoguePresenter(dialogueRunner ,yarnVariableStorage, inputService);
         _entityModel = new EntityModel(_dialoguePresenter);
         _inventoryModel = new InventoryModel();
         _orreryModel = new OrreryModel(orrerySettingsSo);
         _jetpackModel = new JetpackModel(_entityModel, _orreryModel);
         _questModel = new QuestModel();
+        _walletModel = new WalletModel();
         
         // Presenter
         _audioPresenter = new AudioPresenter(audioView, _jetpackModel, this.destroyCancellationToken);
@@ -95,11 +96,14 @@ public class OrreryRoot : MonoBehaviour
         _cameraPresenter = new CameraPresenter(camera, coordSystemTransformDictionary, _jetpackModel, cinemachineView, this.destroyCancellationToken);
         
         _orreryPresenter = new OrreryPresenter(_orreryModel);
-        
+        _walletPresenter = new WalletPresenter(_walletModel, walletView, this.destroyCancellationToken);
+
         _saveDataService.RegisterReader(_orreryPresenter);
         _saveDataService.RegisterWriter(_orreryPresenter);
         _saveDataService.RegisterReader(_playerPresenter);
         _saveDataService.RegisterWriter(_playerPresenter);
+        _saveDataService.RegisterReader(_walletPresenter);
+        _saveDataService.RegisterWriter(_walletPresenter);
         
         foreach (var (id, planetRoot) in _planetRootDictionary)
         {
@@ -144,6 +148,8 @@ public class OrreryRoot : MonoBehaviour
         _saveDataService.UnregisterWriter(_orreryPresenter);
         _saveDataService.UnregisterReader(_playerPresenter);
         _saveDataService.UnregisterWriter(_playerPresenter);
+        _saveDataService.UnregisterReader(_walletPresenter);
+        _saveDataService.UnregisterWriter(_walletPresenter);
         foreach (var planetRoot in _planetRootDictionary.Values)
         {
             planetRoot.Terminate();

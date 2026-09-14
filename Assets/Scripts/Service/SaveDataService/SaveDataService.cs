@@ -1,10 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Core;
-using Model;
-using Model.Economy;
 
 using Presenter;
 
@@ -84,7 +81,6 @@ namespace Service
                 catch (Exception e)
                 {
                     Debug.LogError($"[DataService] WriteTo failed: {e}");
-                    throw;
                 }
             }
 
@@ -136,7 +132,6 @@ namespace Service
                 catch (Exception e)
                 {
                     Debug.LogError($"[DataService] ReadFrom failed: {e}");
-                    throw;
                 }
             }
 
@@ -157,7 +152,6 @@ namespace Service
                 catch (Exception e)
                 {
                     Debug.LogError($"[DataService] ReadFrom failed: {e}");
-                    throw;
                 }
             }
             

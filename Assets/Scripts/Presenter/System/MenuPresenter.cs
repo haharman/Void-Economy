@@ -64,7 +64,6 @@ namespace Presenter
             _view.OnNewGameSlotPressed += HandleNewGameSlotPressed;
             _view.OnMenuPanelChanged += HandleMenuPanelChanged;
 
-            //_inputSource.OnUISubmitPressed += view.HandleSubmitPressed;
             _inputSource.OnUICancelPressed += HandleUICancelPressed;
             _inputSource.OnPlayerCancelPressed += HandlePlayerCancelPressed;
         }
