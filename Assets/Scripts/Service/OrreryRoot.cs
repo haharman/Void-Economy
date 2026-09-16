@@ -37,6 +37,7 @@ public class OrreryRoot : MonoBehaviour
     private PlayerPresenter _playerPresenter;
     private OrreryPresenter _orreryPresenter;
     private WalletPresenter _walletPresenter;
+    private InventoryPresenter _inventoryPresenter;
     private DialoguePresenter _dialoguePresenter;
     
     // Scriptable Objects
@@ -97,6 +98,7 @@ public class OrreryRoot : MonoBehaviour
         
         _orreryPresenter = new OrreryPresenter(_orreryModel);
         _walletPresenter = new WalletPresenter(_walletModel, walletView, this.destroyCancellationToken);
+        _inventoryPresenter = new InventoryPresenter(_inventoryModel);
 
         _saveDataService.RegisterReader(_orreryPresenter);
         _saveDataService.RegisterWriter(_orreryPresenter);
@@ -104,6 +106,8 @@ public class OrreryRoot : MonoBehaviour
         _saveDataService.RegisterWriter(_playerPresenter);
         _saveDataService.RegisterReader(_walletPresenter);
         _saveDataService.RegisterWriter(_walletPresenter);
+        _saveDataService.RegisterReader(_inventoryPresenter);
+        _saveDataService.RegisterWriter(_inventoryPresenter);
         
         foreach (var (id, planetRoot) in _planetRootDictionary)
         {
@@ -150,6 +154,8 @@ public class OrreryRoot : MonoBehaviour
         _saveDataService.UnregisterWriter(_playerPresenter);
         _saveDataService.UnregisterReader(_walletPresenter);
         _saveDataService.UnregisterWriter(_walletPresenter);
+        _saveDataService.UnregisterReader(_inventoryPresenter);
+        _saveDataService.UnregisterWriter(_inventoryPresenter);
         foreach (var planetRoot in _planetRootDictionary.Values)
         {
             planetRoot.Terminate();

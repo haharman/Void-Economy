@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using R3;
 using UnityEngine;
 
@@ -57,12 +58,27 @@ namespace Model
             _updated.OnNext(Unit.Default);
         }
 
-        public void ReadFrom()
+        public void Load(List<ItemStackSaveData> data)
         {
+            Items = new Dictionary<ItemId, ItemStack>();
+            foreach (var saveData in data)
+            {
+                var id = new ItemId(saveData.itemId);
+                SetItem(id, new ItemStack(id, saveData.count, saveData.quality, null));
+            }
+            _updated.OnNext(Unit.Default);
         }
 
-        public void WriteTo()
+        public List<ItemStackSaveData> Save()
         {
+            return Items.Values
+                .Select(stack => new ItemStackSaveData
+                {
+                    itemId = stack.ItemId.Value,
+                    count = stack.Count,
+                    quality = stack.Quality
+                })
+                .ToList();
         }
 
         public GetResult TryGet(ItemId id, int count, out ItemStack item)
