@@ -51,12 +51,12 @@ namespace Model
         public Sprite requesterIcon;
 
         [Header("要求される品物")]
-        public ItemDefinition targetItem;
+        public ItemDefinitionSo targetItem;
         public int requiredAmount;
         
         [Header("報酬")]
         public int rewardYen;
-        public ItemDefinition rewardItem;
+        public ItemDefinitionSo rewardItem;
         public int rewardItemAmount;
     }
 }

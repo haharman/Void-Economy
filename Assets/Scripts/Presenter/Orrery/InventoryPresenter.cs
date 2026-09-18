@@ -1,25 +1,30 @@
+using System.Threading;
 using Core;
 using Model;
+using View;
 
 namespace Presenter
 {
     public class InventoryPresenter : ISaveDataReader, ISaveDataWriter
     {
         private readonly InventoryModel _model;
+        private readonly InventoryView _view;
 
-        public InventoryPresenter(InventoryModel model)
+        public InventoryPresenter(InventoryModel model, InventoryView view)
         {
             _model = model;
+            _view = view;
         }
 
-        public void ClearItems()
+        public void Initialize(CancellationToken cancellationToken)
         {
-            _model.ClearItems();
+            _view.Initialize(_model, cancellationToken);
         }
-
+        
         public void ReadFrom(SaveData data)
         {
             _model.Load(data.inventory);
+            
         }
 
         public void WriteTo(SaveData data)

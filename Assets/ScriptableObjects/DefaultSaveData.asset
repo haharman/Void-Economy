@@ -26,9 +26,18 @@ MonoBehaviour:
       sceneType: 0
     orrery:
       orreryCumulativeSeconds: 1000
+    economy:
+      balance: 0
     player:
       coordSystem: 1
       position: {x: 0, y: 0}
       velocity: {x: 0, y: 0}
       forward: {x: 0, y: 0}
     yarn: []
+    inventory:
+    - itemId: pack-ramen
+      count: 40
+      quality: 0.855
+    - itemId: vitamin-capsule
+      count: 2570
+      quality: 0.4

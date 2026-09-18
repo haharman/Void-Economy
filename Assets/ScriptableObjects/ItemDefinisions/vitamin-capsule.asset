@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b43a9c9d5f4d229c98083b21bdbe4e, type: 3}
+  m_Name: vitamin-capsule
+  m_EditorClassIdentifier: Model::Model.ItemDefinitionSo
+  id: vitamin-capsule
+  displayName:
+    m_TableReference:
+      m_TableCollectionName: GUID:de5d602d5cba207449353c144110b713
+    m_TableEntryReference:
+      m_KeyId: 174109736960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  flavorText:
+    m_TableReference:
+      m_TableCollectionName: GUID:de5d602d5cba207449353c144110b713
+    m_TableEntryReference:
+      m_KeyId: 171728617586688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  icon: {fileID: -5574477830853565254, guid: 0bfa29d702e95634da61febe375ba529, type: 3}
+  mass: 0
+  volume: 0
+  image: {fileID: 1278862698032775462, guid: ccf599bf0a7970b419eb96697ad08ecf, type: 3}
+  references:
+    version: 2
+    RefIds: []

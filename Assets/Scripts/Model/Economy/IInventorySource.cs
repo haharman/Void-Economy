@@ -10,10 +10,13 @@ namespace Model
         SetResult TrySet(ItemStack stack, out ItemStack remain);
         GetResult Get(ItemId id, int count, out ItemStack item);
         SetResult Set(ItemStack stack, out ItemStack remain);
-        int GetCount(ItemId id);
         Observable<Unit> Updated { get; }
         List<ItemStack> ItemList(SortType sortType, bool ascending);
+        float TotalMass { get; }
+        float TotalVolume { get; }
         float MassLimit { get; }
         float VolumeLimit { get; }
+        float MassUtilization { get; }
+        float VolumeUtilization { get; }
     }
 }

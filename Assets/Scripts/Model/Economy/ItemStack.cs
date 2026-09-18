@@ -1,19 +1,25 @@
+using UnityEngine;
+
 namespace Model
 {
     public struct ItemStack
     {
         public ItemId ItemId { get; private set; }
         public int Count { get; private set; }
-        public float Quality { get; private set; }
-        public ItemDefinition Definition { get; private set; }
+        public float Quality { get; private set; } // 0~1fの割合
+        public ItemDefinitionSo Definition { get; private set; }
 
         public float TotalMass => Definition != null ? Definition.Mass * Count : 0f;
         public float TotalVolume => Definition != null ? Definition.Volume * Count : 0f;
 
         public static ItemStack EmptyItemStack => new ItemStack(ItemId.Empty, 0, 0f, null);
 
-        public ItemStack(ItemId itemId, int count, float quality, ItemDefinition definition)
+        public ItemStack(ItemId itemId, int count, float quality, ItemDefinitionSo definition)
         {
+            if (itemId != definition.Id)
+            {
+                Debug.LogError("[ItemStack] ItemIdが定義と一致しません");
+            }
             ItemId = itemId;
             Count = count;
             Quality = quality;

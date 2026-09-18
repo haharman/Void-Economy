@@ -141,7 +141,7 @@ namespace View
 
         public void UpdateLoopLayers(float cameraRawX, float cameraWidth)
         {
-            Debug.Log("[ParallaxView] UpdateLoopLayers");
+            // Debug.Log("[ParallaxView] UpdateLoopLayers");
             //Debug.Log($"Camera X: {cameraRawX}, Camera Width: {cameraWidth}");
             if (loopLayerList == null || loopLayerList.Count == 0) return;
             float parallaxWidth = planetRadius * 2f * Mathf.PI;
