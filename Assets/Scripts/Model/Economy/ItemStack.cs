@@ -16,7 +16,7 @@ namespace Model
 
         public ItemStack(ItemId itemId, int count, float quality, ItemDefinitionSo definition)
         {
-            if (itemId != definition.Id)
+            if (definition != null && itemId != definition.Id)
             {
                 Debug.LogError("[ItemStack] ItemIdが定義と一致しません");
             }

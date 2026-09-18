@@ -70,6 +70,7 @@ namespace Model
                 if (!_itemRegistry.TryGetDefinition(id, out var definition))
                 {
                     Debug.LogError($"[InventoryModel] ItemDatabaseSoに存在しないItemIdをロードしようとしました id={id}");
+                    continue;
                 }
                 SetItem(id, new ItemStack(id, saveData.count, saveData.quality, definition));
             }

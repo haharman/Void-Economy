@@ -33,7 +33,7 @@ namespace View
 
         public void Bind(ItemStack stack)
         {
-            icon.sprite = stack.Definition.Icon;
+            icon.sprite = stack.Definition != null ? stack.Definition.Icon : null;
             count.text = stack.Count.ToString();
             mass.text = stack.TotalMass.ToString("G3", CultureInfo.InvariantCulture) + _massUnit;
             volume.text = stack.TotalVolume.ToString("G3", CultureInfo.InvariantCulture) + _volumeUnit;

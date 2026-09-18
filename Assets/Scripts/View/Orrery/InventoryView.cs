@@ -113,9 +113,10 @@ namespace View
         public void OnItemSelected(int index)
         {
             Debug.Log($"アイテムが選択された: {index}");
-            itemNameText.text = _itemList[index].Definition.DisplayName;
-            itemFlavorText.text = _itemList[index].Definition.FlavorText;
-            itemImage.sprite = _itemList[index].Definition.Image;
+            var definition = _itemList[index].Definition;
+            itemNameText.text = definition != null ? definition.DisplayName : string.Empty;
+            itemFlavorText.text = definition != null ? definition.FlavorText : string.Empty;
+            itemImage.sprite = definition != null ? definition.Image : null;
             
             // 選択位置を示すUI
             selectBarRect.DOKill();
