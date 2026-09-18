@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using R3;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ namespace Model
 
     public class InventoryModel : IInventorySource
     {
+        private readonly IItemRegistrySource _itemRegistry;
         private Dictionary<ItemId, ItemStack> Items;
         private float _massLimit = 100f;
         private float _volumeLimit = 100f;
@@ -42,12 +44,14 @@ namespace Model
 
         public float MassLimit => _massLimit;
         public float VolumeLimit => _volumeLimit;
+        public float TotalMass => Items.Values.Sum(stack => stack.TotalMass);
+        public float TotalVolume => Items.Values.Sum(stack => stack.TotalVolume);
+        public float MassUtilization => _massLimit > 0 ? TotalMass / _massLimit : 0;
+        public float VolumeUtilization => _volumeLimit > 0 ? TotalVolume / _volumeLimit : 0;
 
-        private float CurrentMass => Items.Values.Sum(stack => stack.TotalMass);
-        private float CurrentVolume => Items.Values.Sum(stack => stack.TotalVolume);
-
-        public InventoryModel()
+        public InventoryModel(IItemRegistrySource itemRegistry)
         {
+            _itemRegistry = itemRegistry;
             Items = new();
         }
 
@@ -57,12 +61,31 @@ namespace Model
             _updated.OnNext(Unit.Default);
         }
 
-        public void ReadFrom()
+        public void Load(List<ItemStackSaveData> data)
         {
+            Items = new Dictionary<ItemId, ItemStack>();
+            foreach (var saveData in data)
+            {
+                var id = new ItemId(saveData.itemId);
+                if (!_itemRegistry.TryGetDefinition(id, out var definition))
+                {
+                    Debug.LogError($"[InventoryModel] ItemDatabaseSoに存在しないItemIdをロードしようとしました id={id}");
+                }
+                SetItem(id, new ItemStack(id, saveData.count, saveData.quality, definition));
+            }
+            _updated.OnNext(Unit.Default);
         }
 
-        public void WriteTo()
+        public List<ItemStackSaveData> Save()
         {
+            return Items.Values
+                .Select(stack => new ItemStackSaveData
+                {
+                    itemId = stack.ItemId.Value,
+                    count = stack.Count,
+                    quality = stack.Quality
+                })
+                .ToList();
         }
 
         public GetResult TryGet(ItemId id, int count, out ItemStack item)
@@ -154,8 +177,8 @@ namespace Model
         /// </summary>
         private (int maxByMass, int maxByVolume, bool isMassBottleneck) ComputeCapacity(ItemStack stack)
         {
-            var massHeadroom = _massLimit - CurrentMass;
-            var volumeHeadroom = _volumeLimit - CurrentVolume;
+            var massHeadroom = _massLimit - TotalMass;
+            var volumeHeadroom = _volumeLimit - TotalVolume;
 
             var perUnitMass = stack.Definition != null ? stack.Definition.Mass : 0f;
             var perUnitVolume = stack.Definition != null ? stack.Definition.Volume : 0f;

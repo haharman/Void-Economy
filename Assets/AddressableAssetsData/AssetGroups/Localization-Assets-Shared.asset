@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 117dab9d6a13bbc4da2318f04c827881
   m_SerializeEntries:
+  - m_GUID: 23beb77d0318e0949a939031087a543e
+    m_Address: Assets/Localization/UiTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: baab6231ec1058a47be4550d8915d1ad
     m_Address: Assets/Localization/DialogueTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de5d602d5cba207449353c144110b713
+    m_Address: Assets/Localization/ItemsTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

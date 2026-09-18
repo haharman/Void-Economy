@@ -24,7 +24,7 @@ namespace Presenter
         {
             if (_coord == _cameraSource.Coord)
             {
-                Debug.Log(_coord);
+                // Debug.Log(_coord);
                 _view.UpdateLoopLayers(_cameraSource.Position.x, _cameraSource.Size.x);
             }
         }

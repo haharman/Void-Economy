@@ -16,6 +16,7 @@ namespace Core
         //public InventorySaveData inventory;
         public PlayerSaveData player;
         public List<YarnVariable> yarn;
+        public List<ItemStackSaveData> inventory;
 
         public SaveData()
         {
@@ -82,12 +83,6 @@ namespace Core
     }
 
     [Serializable]
-    public struct InventorySaveData
-    {
-        
-    }
-
-    [Serializable]
     public struct YarnVariable
     {
         public string key;
@@ -96,11 +91,10 @@ namespace Core
     }
     
     [Serializable]
-    public class ItemInstanceSaveData
+    public struct ItemStackSaveData
     {
-        public string instanceId;
-        public string definitionId; // ItemDefinition.Idの文字列
+        public string itemId;
         public int count;
-        // Memory系拡張データはpolymorphicにシリアライズが必要になるので注意
+        public float quality;
     }
 }
