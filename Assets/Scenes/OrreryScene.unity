@@ -225,7 +225,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 56234509}
-  - component: {fileID: 56234510}
   m_Layer: 0
   m_Name: Parallax
   m_TagString: Untagged
@@ -248,20 +247,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4466654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &56234510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56234508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06384c567c7340a7ad38d2a2ac42ad05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: View::View.ParallaxView
-  layerList: []
-  rangeBuffer: 0.5
 --- !u!1 &70690101
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +770,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.5
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1392,7 +1377,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 9.5
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1473,7 +1458,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 298798187}
-  - component: {fileID: 298798188}
   - component: {fileID: 298798189}
   m_Layer: 0
   m_Name: Parallax
@@ -1501,20 +1485,6 @@ Transform:
   - {fileID: 1929927179}
   m_Father: {fileID: 321835650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &298798188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298798186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06384c567c7340a7ad38d2a2ac42ad05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: View::View.ParallaxView
-  layerList: []
-  rangeBuffer: 0.5
 --- !u!114 &298798189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,7 +1497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd8d493e7c74e8f99df9fc3bb23f197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: View::View.ParallaxLoopView
-  planetRadius: 23.5
   loopLayerList:
   - name: B1
     sprite: {fileID: 21300000, guid: 5ffd46e6f8b300b4586d6c37ef65feb7, type: 3}
@@ -1774,7 +1743,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375403065}
-  - component: {fileID: 375403066}
   m_Layer: 0
   m_Name: Parallax
   m_TagString: Untagged
@@ -1797,164 +1765,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1109315706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &375403066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 375403064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06384c567c7340a7ad38d2a2ac42ad05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: View::View.ParallaxView
-  layerList:
-  - name: B1
-    sprite: {fileID: 21300000, guid: 5ffd46e6f8b300b4586d6c37ef65feb7, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -10
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.9
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: B2
-    sprite: {fileID: 21300000, guid: fe313ea30920c6148a9c4294d1bf8991, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -9
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.7
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: B3
-    sprite: {fileID: 21300000, guid: 8f1d8fac89203a742ae000924958f144, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -8
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.5
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: B4
-    sprite: {fileID: 21300000, guid: 5abcc868704999a498760ba0235a70d6, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -5
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.35
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: B5
-    sprite: {fileID: 21300000, guid: 60365ed6c6f496a439da0e9d9513f352, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -4
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.27
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: S1
-    sprite: {fileID: 21300000, guid: c5699a51b9864e14ab9e4594c2ab5d82, type: 3}
-    type: 0
-    repeatCount: 1
-    order: -1
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0.27
-    loop: 0
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: S2
-    sprite: {fileID: 21300000, guid: 0ea4eb69dde633446a45a0a6d18c411d, type: 3}
-    type: 0
-    repeatCount: 1
-    order: 2
-    pivot: 0
-    pivotX: -15
-    depthFromPlayer: -0.3
-    loop: 0
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: W1
-    sprite: {fileID: 21300000, guid: d0844e66f74a6ef45a1e6b66934c428c, type: 3}
-    type: 0
-    repeatCount: 0
-    order: 10
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: -1
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: W2
-    sprite: {fileID: 21300000, guid: 2b5f5a754b7e24f44a20f4109a5a06d8, type: 3}
-    type: 0
-    repeatCount: 0
-    order: 6
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: -0.5
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: W3
-    sprite: {fileID: 21300000, guid: baea0eb3ee61e3447bd7851a6262a6b1, type: 3}
-    type: 0
-    repeatCount: 0
-    order: 1
-    pivot: 0
-    pivotX: 5
-    depthFromPlayer: 0
-    loop: 0
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: Trees
-    sprite: {fileID: 21300000, guid: 4ebf5e6cc2cadfb40ac4cd473047cd47, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -2
-    pivot: 0
-    pivotX: 5
-    depthFromPlayer: 0.3
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  - name: Water
-    sprite: {fileID: 21300000, guid: f6df1ed464169b44bbbf8a5c9fdcc130, type: 3}
-    type: 0
-    repeatCount: 0
-    order: -2
-    pivot: 0
-    pivotX: 0
-    depthFromPlayer: 0
-    loop: 1
-    minX: 0
-    maxX: 0
-    sortingOrder: 0
-  rangeBuffer: 0.5
 --- !u!1 &432280859
 GameObject:
   m_ObjectHideFlags: 0
@@ -4804,7 +4614,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1151583062}
-  - component: {fileID: 1151583063}
   m_Layer: 0
   m_Name: Parallax
   m_TagString: Untagged
@@ -4827,20 +4636,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1613176958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1151583063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151583061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06384c567c7340a7ad38d2a2ac42ad05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: View::View.ParallaxView
-  layerList: []
-  rangeBuffer: 0.5
 --- !u!1 &1151969999
 GameObject:
   m_ObjectHideFlags: 0
