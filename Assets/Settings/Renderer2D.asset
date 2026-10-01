@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-97869659697658898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe5960e37a992b84eb1bd9840c8edf6f, type: 3}
-  m_Name: PixelArtRendererFeature
-  m_EditorClassIdentifier: View::PixelArtRendererFeature
-  m_Active: 0
-  atmosphereMat: {fileID: 2100000, guid: ec761bca204c3504eb490634314a5d97, type: 2}
-  ditherMat: {fileID: 2100000, guid: 64df8385b1ddfbb40b4f80c250b31ab8, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,9 +25,8 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 2800000, guid: 24ec0e140fb444a44ab96ee80844e18e, type: 3}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
-  - {fileID: -97869659697658898}
   - {fileID: 6501216943916207739}
-  m_RendererFeatureMap: eec36e23104ca4fe7b4ee0955df6385a
+  m_RendererFeatureMap: 7b4ee0955df6385a
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2

@@ -32,8 +32,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   icon: {fileID: -5574477830853565254, guid: 0bfa29d702e95634da61febe375ba529, type: 3}
-  mass: 0
-  volume: 0
+  mass: 0.1
+  volume: 0.1
   image: {fileID: 1278862698032775462, guid: ccf599bf0a7970b419eb96697ad08ecf, type: 3}
   references:
     version: 2
