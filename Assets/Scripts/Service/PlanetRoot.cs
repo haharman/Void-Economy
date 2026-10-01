@@ -75,7 +75,8 @@ namespace Service
         {
             DisposeCts();
 
-            // 子を先に外してから親を外す（親が外れた後は子の削除が処理されないため）
+            // 子を先に外してから親を外す（削除は次回 OnUpdate の冒頭で遅延処理されるため、
+            // 親が外れて OnUpdate が走らなくなると、子の削除は処理されないまま残る）
             if (_planetUpdateService != null)
             {
                 if (_planetPresenter != null) _planetUpdateService.Unregister(_planetPresenter);

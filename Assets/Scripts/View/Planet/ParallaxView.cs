@@ -178,6 +178,9 @@ namespace View
             
             foreach (var layer in loopLayerList)
             {
+                // GenerateLoopLayers 未実行 / Sprite未設定の要素は更新できない(毎フレーム例外にしない)
+                if (layer.spriteWidth <= 0f || layer.gameObject == null || layer.spriteRenderer == null) continue;
+
                 // レイヤー位置(Surface上のX)。周長Wで畳まない。
                 // speed = 1 - totalWidth/W なので、カメラが周長Wだけ進むと、カメラ相対のタイル位相は
                 // totalWidth (= spriteWidth*loopCount ≡ 0 mod spriteWidth) だけずれる = 周回の継ぎ目でも連続になる。
@@ -208,7 +211,10 @@ namespace View
             float parallaxWidth = 2f * Mathf.PI * _planetRadius;
 
             foreach (var layer in nonLoopLayerList)
-            { 
+            {
+                // 子を削除したまま ImportNonLoopLayers し忘れた要素は飛ばす
+                if (layer.transform == null) continue;
+
                 // レイヤー位置 区間[0,parallaxWidth)
                 float layerX = (parallaxWidth + (layer.basePosition.x) % parallaxWidth) % parallaxWidth;
                 
