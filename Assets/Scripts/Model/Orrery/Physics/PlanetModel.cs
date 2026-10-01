@@ -11,14 +11,12 @@ namespace Model
         [SerializeField, FormerlySerializedAs("name")] private string _name;
         [SerializeField, FormerlySerializedAs("radius")] private float _radius;
         [SerializeField, FormerlySerializedAs("gravity")] private float _gravity;
-        [SerializeField, FormerlySerializedAs("parallaxHeight")] private float _parallaxHeight;
         [SerializeField, FormerlySerializedAs("orbitalRadius")] private float _orbitalRadius;
         [SerializeField, FormerlySerializedAs("orbitalPeriodSeconds")] private float _orbitalPeriodSeconds;
 
         public string Name => _name;
         public float Radius => _radius;
         public float Gravity => _gravity;
-        public float ParallaxHeight => _parallaxHeight;
         public float OrbitalRadius => _orbitalRadius;
         public float OrbitalPeriodSeconds => _orbitalPeriodSeconds;
 

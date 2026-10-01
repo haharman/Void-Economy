@@ -32,12 +32,16 @@ namespace Service
         // IUpdateService
         public void Register(IUpdatable updatable)
         {
-            if (!_updatables.Contains(updatable)) _toAdd.Add(updatable);
+            // 削除待ちの再登録は削除を取り消す（取り消さないと次回の処理で外れてしまう）
+            if (_updatables.Contains(updatable)) _toRemove.Remove(updatable);
+            else if (!_toAdd.Contains(updatable)) _toAdd.Add(updatable);
         }
 
         public void Unregister(IUpdatable updatable)
         {
-            if (_updatables.Contains(updatable)) _toRemove.Add(updatable);
+            // 追加待ち（次回 OnUpdate で反映予定）のものも取り消す
+            _toAdd.Remove(updatable);
+            if (_updatables.Contains(updatable) && !_toRemove.Contains(updatable)) _toRemove.Add(updatable);
         }
         
         // 削除を検討中（インターフェースからはいったん削除している）
