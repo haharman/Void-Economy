@@ -7,7 +7,6 @@ namespace Model
         string Name { get; }
         float Radius { get; }
         float Gravity { get; }
-        float ParallaxHeight { get; }
         float OrbitalRadius { get; }
         float Phase { get; }
         float OrbitalPeriodSeconds { get; }

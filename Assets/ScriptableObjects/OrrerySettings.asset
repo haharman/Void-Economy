@@ -18,7 +18,6 @@ MonoBehaviour:
       _name: The Sun
       _radius: 150
       _gravity: 0
-      _parallaxHeight: 0
       _orbitalRadius: 0
       _orbitalPeriodSeconds: Infinity
   - Id: 1
@@ -26,7 +25,6 @@ MonoBehaviour:
       _name: Soul
       _radius: 23.5
       _gravity: 10
-      _parallaxHeight: 0
       _orbitalRadius: 200
       _orbitalPeriodSeconds: 100
   - Id: 2
@@ -34,7 +32,6 @@ MonoBehaviour:
       _name: Mine
       _radius: 50
       _gravity: 20
-      _parallaxHeight: 10.51
       _orbitalRadius: 420
       _orbitalPeriodSeconds: 200
   - Id: 3
@@ -42,7 +39,6 @@ MonoBehaviour:
       _name: Red
       _radius: 72.5
       _gravity: 30
-      _parallaxHeight: 0
       _orbitalRadius: 700
       _orbitalPeriodSeconds: 170
   - Id: 4
@@ -50,6 +46,5 @@ MonoBehaviour:
       _name: Fog
       _radius: 135
       _gravity: 35
-      _parallaxHeight: 0
       _orbitalRadius: 800
       _orbitalPeriodSeconds: 1400

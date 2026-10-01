@@ -27,19 +27,32 @@ namespace Service
         [SerializeField] private CoordView coordView;
         [SerializeField] private PlanetView planetView;
         // Presenter
-        private ParallaxPresenter _parallaxPresenter; // 一時停止中
+        private ParallaxPresenter _parallaxPresenter; // parallaxView 未設定の惑星では null
         private PlanetPresenter _planetPresenter;
 
-        private readonly CancellationTokenSource _cts = new();
+        // Terminate で Cancel+Dispose するため readonly にしない（Bootstrap のたびに作り直す）
+        private CancellationTokenSource _cts;
         
         public void Bootstrap(CoordSystemId planetId, IPlanetModel planetModel,
             IJetpackSource jetpackSource, ISaveDataService saveDataService, ICameraSource cameraSource)
         {
             PlanetId = planetId;
             _cameraSource = cameraSource;
+            DisposeCts();
+            _cts = new CancellationTokenSource();
             var ct = _cts.Token;
             Debug.Log("[SurfaceRoot] Init");
-            _parallaxPresenter = new ParallaxPresenter(parallaxView, _cameraSource, planetId);
+            if (parallaxView != null)
+            {
+                // 半径の出所は PlanetModel.Radius に一本化（ParallaxView への手入力は廃止）
+                parallaxView.SetPlanetRadius(planetModel.Radius);
+                _parallaxPresenter = new ParallaxPresenter(parallaxView, _cameraSource, planetId);
+            }
+            else
+            {
+                _parallaxPresenter = null;
+                Debug.LogWarning($"[PlanetRoot] {planetId}: ParallaxView が未設定のためParallaxを無効化します", this);
+            }
             _planetPresenter = new PlanetPresenter(planetId, planetView, coordView, jetpackSource, 
                 planetModel, ct);
             _planetUpdateService = new UpdateService();
@@ -54,17 +67,34 @@ namespace Service
             
             _orreryUpdateService = orreryUpdateService;
             _planetUpdateService.Register(_planetPresenter);
-            _planetUpdateService.Register(_parallaxPresenter);
+            if (_parallaxPresenter != null) _planetUpdateService.Register(_parallaxPresenter);
             _orreryUpdateService.Register(_planetUpdateService);
         }
         
         public void Terminate()
         {
-            _cts.Cancel();
+            DisposeCts();
+
+            // 子を先に外してから親を外す（削除は次回 OnUpdate の冒頭で遅延処理されるため、
+            // 親が外れて OnUpdate が走らなくなると、子の削除は処理されないまま残る）
+            if (_planetUpdateService != null)
+            {
+                if (_planetPresenter != null) _planetUpdateService.Unregister(_planetPresenter);
+                if (_parallaxPresenter != null) _planetUpdateService.Unregister(_parallaxPresenter);
+            }
             
-            _orreryUpdateService.Unregister(_planetUpdateService);
-            _planetUpdateService.Unregister(_planetPresenter);
-            _planetUpdateService.Unregister(_parallaxPresenter);
+            // Initialize 前に Terminate されても NRE にしない
+            if (_orreryUpdateService != null && _planetUpdateService != null)
+                _orreryUpdateService.Unregister(_planetUpdateService);
+            _orreryUpdateService = null;
+        }
+
+        private void DisposeCts()
+        {
+            if (_cts == null) return;
+            _cts.Cancel();
+            _cts.Dispose();
+            _cts = null;
         }
 
         #region 自動アタッチ

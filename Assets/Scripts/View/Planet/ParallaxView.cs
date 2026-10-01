@@ -6,13 +6,12 @@ namespace View
 {
     public class ParallaxView : MonoBehaviour
     {
-        [Tooltip("惑星の半径(Unit)")] public float planetRadius;
-        
-        [Space, Tooltip("ループするレイヤーを手動設定")]public List<LoopLayer> loopLayerList = new();
+        [Tooltip("ループするレイヤーを手動設定")]public List<LoopLayer> loopLayerList = new();
 
         [Space, Tooltip("ループしないオブジェクトをこのオブジェクトの子として配置"), ListLabel("Name")] public List<NonLoopLayer> nonLoopLayerList = new();
         
         [Header("Sprite Width Calculator")] 
+        [Tooltip("Width Calculator専用。実行時の半径は PlanetModel から注入されるため、この値は実行時には使われない")] public float calculatorPlanetRadius;
         [Tooltip("繰り返し回数"), Min(1)] public int repeatCount;
         [Tooltip("スピード")][Range(-1f, 1f)] public float speed;
 
@@ -42,7 +41,6 @@ namespace View
             if (Camera == null)
                 Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             float cameraWidth = Camera == null ? Camera.orthographicSize * 2f * Camera.aspect : 10f;
-            float parallaxWidth = planetRadius * 2f * Mathf.PI;
             
             foreach (var layer in loopLayerList)
             {
@@ -58,10 +56,9 @@ namespace View
                     continue;
                 }
 
-                // spriteWidth, speedの算出
+                // spriteWidth, totalWidthの算出 (speedは半径が注入される SetPlanetRadius で算出)
                 layer.spriteWidth = layer.sprite.rect.width / layer.sprite.pixelsPerUnit;
                 layer.totalWidth = layer.spriteWidth * layer.loopCount;
-                layer.speed = 1f - layer.totalWidth/ parallaxWidth;
                 
                 // ゲームオブジェクト作成
                 layer.gameObject = new GameObject(layer.name);
@@ -77,7 +74,8 @@ namespace View
                 // 前後関係
                 layer.spriteRenderer.sortingLayerName = "Parallax";
                 layer.spriteRenderer.sortingOrder = 0;
-                layer.gameObject.transform.localPosition = new Vector3(layer.offsetX, layer.offsetY, layer.speed);
+                // zは実行時に UpdateLoopLayers が speed を設定する
+                layer.gameObject.transform.localPosition = new Vector3(layer.offsetX, layer.offsetY, 0f);
             }
         }
         
@@ -100,7 +98,7 @@ namespace View
         [Button]
         private void CalculateSpriteWidth()
         {
-            float parallaxWidth = planetRadius * 2f * Mathf.PI;
+            float parallaxWidth = calculatorPlanetRadius * 2f * Mathf.PI;
             calculatedSpriteWidth = Mathf.RoundToInt((1f - speed) * parallaxWidth / (float)repeatCount * 10f);
         }
 
@@ -118,8 +116,8 @@ namespace View
             public Sprite sprite;
             [Min(1)] public int loopCount = 1;
             
-            [Tooltip("0.1刻みに丸められます")] public float offsetX;
-            [Tooltip("0.1刻みに丸められます")] public float offsetY;
+            [Tooltip("レイヤーをSurface上でこの量だけ横にずらす(Unit)")] public float offsetX;
+            [Tooltip("レイヤーのY位置(Unit)")] public float offsetY;
 
             [InspectorReadOnly] public float spriteWidth;
             [InspectorReadOnly] public float totalWidth;
@@ -139,66 +137,92 @@ namespace View
 
         private static GameObject _loopLayerParentObj;
 
+        private float _planetRadius;
+        private bool _warnedRadiusNotSet;
+
+        // PlanetRoot.Bootstrap が PlanetModel.Radius を注入する
+        public void SetPlanetRadius(float planetRadius)
+        {
+            if (planetRadius <= 0f)
+            {
+                Debug.LogError($"[ParallaxView] planetRadius に0以下の値が渡されました: {planetRadius}", this);
+                return;
+            }
+            _planetRadius = planetRadius;
+
+            float parallaxWidth = 2f * Mathf.PI * _planetRadius;
+            if (loopLayerList == null) return;
+            foreach (var layer in loopLayerList)
+                layer.speed = 1f - layer.totalWidth / parallaxWidth;
+        }
+
+        // SetPlanetRadius が未呼出の間は更新できない(警告は一度だけ)
+        private bool HasPlanetRadius()
+        {
+            if (_planetRadius > 0f) return true;
+            if (!_warnedRadiusNotSet)
+            {
+                Debug.LogWarning("[ParallaxView] SetPlanetRadius が未呼出のため、更新をスキップします", this);
+                _warnedRadiusNotSet = true;
+            }
+            return false;
+        }
+
         public void UpdateLoopLayers(float cameraRawX, float cameraWidth)
         {
-            // Debug.Log("[ParallaxView] UpdateLoopLayers");
-            //Debug.Log($"Camera X: {cameraRawX}, Camera Width: {cameraWidth}");
             if (loopLayerList == null || loopLayerList.Count == 0) return;
-            float parallaxWidth = planetRadius * 2f * Mathf.PI;
+            if (!HasPlanetRadius()) return;
 
             float leftCameraEdge = cameraRawX - cameraWidth / 2f;
             float rightCameraEdge = cameraRawX + cameraWidth / 2f;
             
             foreach (var layer in loopLayerList)
             {
-                // カメラ位置 区間[0,parallaxWidth)
-                float cameraX = (parallaxWidth + (cameraRawX - layer.offsetX) % parallaxWidth) % parallaxWidth;
-                
-                // レイヤー位置 区間[0,parallaxWidth)
-                float layerX = (parallaxWidth + (cameraX * layer.speed) % parallaxWidth) % parallaxWidth;
+                // GenerateLoopLayers 未実行 / Sprite未設定の要素は更新できない(毎フレーム例外にしない)
+                if (layer.spriteWidth <= 0f || layer.gameObject == null || layer.spriteRenderer == null) continue;
 
-                //Debug.Log($"leftCameraEdge: {leftCameraEdge}, rightCameraEdge: {rightCameraEdge}, spriteWidth: {layer.spriteWidth}");
+                // レイヤー位置(Surface上のX)。周長Wで畳まない。
+                // speed = 1 - totalWidth/W なので、カメラが周長Wだけ進むと、カメラ相対のタイル位相は
+                // totalWidth (= spriteWidth*loopCount ≡ 0 mod spriteWidth) だけずれる = 周回の継ぎ目でも連続になる。
+                // W で畳むと W mod spriteWidth だけ位相が飛ぶため、畳んではいけない。
+                float layerX = cameraRawX * layer.speed + layer.offsetX;
+
                 // カメラの左端を考慮したレイヤーの左端
                 // 等差数列 layerX + spriteWidth * n の中で、leftCameraEdge 未満になる最大の項
                 float diff = (leftCameraEdge - layerX) / layer.spriteWidth;
                 int n = Mathf.CeilToInt(diff) - 1;
                 float leftLayerEdge = layerX + layer.spriteWidth * n;
 
-                //Debug.Log($"rightCameraEdge{rightCameraEdge}, leftLayerEdge: {leftLayerEdge}, spriteWidth: {layer.spriteWidth}");
                 // カメラの右端を考慮したレイヤーの繰り返し回数
                 // leftLayerEdge + spriteWidth*tileCount > rightCameraEdge を満たす最小の tileCount
                 int tileCount = Mathf.FloorToInt((rightCameraEdge - leftLayerEdge) / layer.spriteWidth) + 1;
-                //Debug.Log($"tileCount: {tileCount}");
                 
                 layer.gameObject.transform.localPosition = new Vector3(leftLayerEdge, layer.offsetY, layer.speed);
                 layer.spriteRenderer.size = new Vector2(layer.spriteWidth * tileCount, layer.spriteRenderer.size.y);
-                //Debug.Log($"cameraX: {cameraX}, layerX: {layer.spriteWidth}, layerLeft: {leftLayerEdge}, tileCount: {tileCount}, layerRight: {leftLayerEdge+layer.spriteWidth*tileCount}");
             }
         }
 
-        public void UpdateNonLoopLayers(float cameraRawX, float cameraWidth)
+        // 非ループレイヤーは speed=0 (地表に置く物)のみ想定。Surface座標のまま、カメラに最も近い周回のイメージに置く
+        // TODO(未決定): Entityを含む場合、EntityModelの位置(固定)と描画位置(最近傍イメージ)が継ぎ目付近でずれる
+        public void UpdateNonLoopLayers(float cameraRawX)
         {
-            Debug.Log("[ParallaxView] UpdateNonLoopLayers");
-            Debug.Log($"Camera X: {cameraRawX}, Camera Width: {cameraWidth}");
             if (nonLoopLayerList == null || nonLoopLayerList.Count == 0) return;
-            float parallaxWidth = planetRadius * 2f * Mathf.PI;
-            float leftCameraEdge = cameraRawX - cameraWidth / 2f;
-            float rightCameraEdge = cameraRawX + cameraWidth / 2f;
+            if (!HasPlanetRadius()) return;
+            float parallaxWidth = 2f * Mathf.PI * _planetRadius;
 
             foreach (var layer in nonLoopLayerList)
-            { 
+            {
+                // 子を削除したまま ImportNonLoopLayers し忘れた要素は飛ばす
+                if (layer.transform == null) continue;
+
                 // レイヤー位置 区間[0,parallaxWidth)
                 float layerX = (parallaxWidth + (layer.basePosition.x) % parallaxWidth) % parallaxWidth;
                 
                 // (layerX + parallaxWidth*n) -  cameraX の絶対値が最小となるX
                 float spriteX = cameraRawX + Mathf.Repeat(layerX - cameraRawX + parallaxWidth * 0.5f, parallaxWidth) - parallaxWidth * 0.5f;
 
-                layer.transform.localPosition = new Vector3(spriteX, layer.transform.position.y, layer.transform.position.z);
-
+                layer.transform.localPosition = new Vector3(spriteX, layer.basePosition.y, layer.basePosition.z);
             }
-
         }
-
-        
     }
 }

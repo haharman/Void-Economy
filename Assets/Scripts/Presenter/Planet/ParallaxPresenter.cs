@@ -26,6 +26,7 @@ namespace Presenter
             {
                 // Debug.Log(_coord);
                 _view.UpdateLoopLayers(_cameraSource.Position.x, _cameraSource.Size.x);
+                _view.UpdateNonLoopLayers(_cameraSource.Position.x);
             }
         }
     }

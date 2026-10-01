@@ -55,7 +55,6 @@ namespace Model
         private float SpaceLoadAltitude => ClosestPlanet.Radius * 1f;
         private float SurfaceUnloadAltitude => KarmanAltitude; // 保留。プレイヤーも消えちゃうので高度を最大値に変更中。
         private float SurfaceLoadAltitude => KarmanAltitude;//ClosestPlanet.Radius * 1f;
-        private float ParallaxAltitude => ClosestPlanet.ParallaxHeight;
         private float LiftoffAltitude => 2f;
         private float TouchdownAltitude => 0.1f;
         private float GroundAltitude => 0f;

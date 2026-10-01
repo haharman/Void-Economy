@@ -162,8 +162,13 @@ public class OrreryRoot : MonoBehaviour
         _saveDataService.UnregisterWriter(_walletPresenter);
         _saveDataService.UnregisterReader(_inventoryPresenter);
         _saveDataService.UnregisterWriter(_inventoryPresenter);
-        foreach (var planetRoot in _planetRootDictionary.Values)
+        foreach (var (id, planetRoot) in _planetRootDictionary)
         {
+            if (planetRoot == null)
+            {
+                Debug.LogError($"PlanetRoot {id} is null");
+                continue;
+            }
             planetRoot.Terminate();
         }
     }
